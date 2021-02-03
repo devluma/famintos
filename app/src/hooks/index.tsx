@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Adicionar hook de autenticação
-// import { AuthProvider } from './auth';
+// Adicionar hook de toast messages
 
 const AppProvider: React.FC = ({ children }) => (
   <>
