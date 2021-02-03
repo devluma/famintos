@@ -34,6 +34,12 @@ export const Content = styled.main`
     &:hover {
       color: ${shade(0.2, '#80aaff')};
     }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 3px;
+    }
   }
 `;
 

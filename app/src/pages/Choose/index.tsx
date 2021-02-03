@@ -1,5 +1,5 @@
-import React from 'react';
-import { FiArrowRight } from 'react-icons/fi';
+import React, { useCallback } from 'react';
+import { FiX, FiThumbsUp } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
 import {
@@ -16,6 +16,18 @@ import Footer from '../../components/Footer';
 const Choose: React.FC = () => {
   const history = useHistory();
 
+  const handleLiked = useCallback(
+    async () => {
+      try {
+        // Actions
+
+        history.push('/dashboard');
+      } catch (err) {
+        // Error
+      }
+    }, [history],
+  );
+
   return (
     <Container>
       <Header text="Escolha um Restaurante para Almoçar" />
@@ -25,18 +37,70 @@ const Choose: React.FC = () => {
           <h3>Lista dos Restaurantes Disponíveis</h3>
 
           <ListContainer>
-            <ItemContent>Restaurante do Copernico</ItemContent>
-            <ItemContent>Restaurante do Tião</ItemContent>
-            <ItemContent>Restaurante do Boss</ItemContent>
-            <ItemContent>Restaurante dos Redneck</ItemContent>
-            <ItemContent>Mercado Zaffari</ItemContent>
-            <ItemContent>Lancheria da Tia Zila</ItemContent>
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span>&gt;&gt;</span>
+              <p>Restaurante vegano À la carte</p>
+
+              <div>
+                <button type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="#0055ff" />
+                </button>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span>&gt;&gt;</span>
+              <p>Restaurante vegano À la carte</p>
+
+              <div>
+                <button type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="#0055ff" />
+                </button>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span>&gt;&gt;</span>
+              <p>Restaurante vegano À la carte</p>
+
+              <div>
+                <button type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="#0055ff" />
+                </button>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span>&gt;&gt;</span>
+              <p>Restaurante vegano À la carte</p>
+
+              <div>
+                <button type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="#0055ff" />
+                </button>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span>&gt;&gt;</span>
+              <p>Restaurante vegano À la carte</p>
+
+              <div>
+                <button type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="#0055ff" />
+                </button>
+              </div>
+            </ItemContent>
           </ListContainer>
         </Section>
 
-        <Link to="/dashboard">
-          <FiArrowRight />
-          Ir para o dashboard
+        <Link to="/">
+          <FiX /> Cancelar e voltar
         </Link>
       </Content>
 

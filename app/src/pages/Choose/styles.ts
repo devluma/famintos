@@ -35,7 +35,13 @@ export const Content = styled.main`
     align-items: center;
 
     &:hover {
-      color: ${shade(0.2, '#80aaff')};
+      color: ${shade(0.2, '#c53030')};
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 3px;
     }
   }
 `;
@@ -70,10 +76,54 @@ export const ListContainer = styled.ul`
 `;
 
 export const ItemContent = styled.li`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
   background: #f2f2f2;
   padding: 12px;
   margin-bottom: 4px;
   border: 2px solid #ccc;
   border-radius: 8px;
   position: relative;
+
+  strong {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 5px;
+    padding: 5px;
+  }
+
+  span {
+    text-align: center;
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  p {
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 8px;
+  }
+
+  div {
+    margin-left: 5px;
+    padding: 5px;
+  }
+
+  div > button {
+    cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+    border: 0px;
+
+    &:hover {
+      background: ${shade(0.2, '#d6f5d6')};
+      color: #d6f5d6;
+    }
+  }
 `;

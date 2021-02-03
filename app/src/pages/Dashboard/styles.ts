@@ -37,6 +37,12 @@ export const Content = styled.main`
     &:hover {
       color: ${shade(0.2, '#80aaff')};
     }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 3px;
+    }
   }
 `;
 
@@ -51,6 +57,15 @@ export const Section = styled.section`
     text-align: center;
     padding-bottom: 18px;
   }
+
+  span {
+    text-align: right;
+
+    b {
+      color: green;
+      padding: 0 5px 0 5px;
+    }
+  }
 `;
 
 export const GraphContainer = styled.div`
@@ -58,6 +73,29 @@ export const GraphContainer = styled.div`
   height: 100%;
   margin-top: 25px;
   margin-bottom: 20px;
-  display: block;
-  border: 1px solid #000;
+
+  /* flex para alinhar conteúdo*/
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  section {
+    height: 300px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: stretch;
+
+    header > h2 {
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 18px;
+    }
+
+    article {
+      padding: 10px;
+    }
+  }
 `;

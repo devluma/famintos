@@ -1,9 +1,14 @@
 import React from 'react';
+import { FiAperture, FiBarChart2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
   Content,
   Section,
+  SectionHeader,
+  SectionArticle,
+  SectionFooter,
 } from './styles';
 
 import Header from '../../components/Header';
@@ -15,7 +20,25 @@ const Home: React.FC = () => (
 
     <Content>
       <Section>
-        <h3>Página Inícial</h3>
+        <SectionHeader>
+          <h3>Agora os famintos podem Escolher onde Almoçar</h3>
+        </SectionHeader>
+        <SectionArticle>
+          <p>Os times da <b>DBserver</b> enfrentam um grande problema.</p>
+          <p>Como eles são muito democráticos, todos os dias eles gastam
+            30 minutos decidindo onde eles irão almoçar.
+          </p>
+          <p>Registre uma opção de <b>Restaurante</b> para o seu <b>Time</b>.</p>
+        </SectionArticle>
+        <SectionFooter>
+          <Link to="/register">
+            <FiAperture /> Registrar
+          </Link>
+
+          <Link to="/dashboard">
+            <FiBarChart2 /> Ver os Vencedores
+          </Link>
+        </SectionFooter>
       </Section>
     </Content>
 
