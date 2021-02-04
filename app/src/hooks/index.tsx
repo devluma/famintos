@@ -1,12 +1,9 @@
 import React from 'react';
 
-// Adicionar hook de autenticação
-// Adicionar hook de toast messages
+import { ToastProvider } from './toast';
 
 const AppProvider: React.FC = ({ children }) => (
-  <>
-    { children }
-  </>
+  <ToastProvider>{children}</ToastProvider>
 );
 
 export default AppProvider;
