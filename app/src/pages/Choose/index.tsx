@@ -40,7 +40,7 @@ const Choose: React.FC = () => {
             <ItemContent>
               <strong>Restaurante do João</strong>
               <span>&gt;&gt;</span>
-              <p>Restaurante vegano À la carte</p>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
 
               <div>
                 <button type="button" onClick={handleLiked}>
@@ -52,7 +52,7 @@ const Choose: React.FC = () => {
             <ItemContent>
               <strong>Restaurante do João</strong>
               <span>&gt;&gt;</span>
-              <p>Restaurante vegano À la carte</p>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
 
               <div>
                 <button type="button" onClick={handleLiked}>
@@ -64,7 +64,7 @@ const Choose: React.FC = () => {
             <ItemContent>
               <strong>Restaurante do João</strong>
               <span>&gt;&gt;</span>
-              <p>Restaurante vegano À la carte</p>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
 
               <div>
                 <button type="button" onClick={handleLiked}>
@@ -76,7 +76,7 @@ const Choose: React.FC = () => {
             <ItemContent>
               <strong>Restaurante do João</strong>
               <span>&gt;&gt;</span>
-              <p>Restaurante vegano À la carte</p>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
 
               <div>
                 <button type="button" onClick={handleLiked}>
@@ -88,7 +88,7 @@ const Choose: React.FC = () => {
             <ItemContent>
               <strong>Restaurante do João</strong>
               <span>&gt;&gt;</span>
-              <p>Restaurante vegano À la carte</p>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
 
               <div>
                 <button type="button" onClick={handleLiked}>
