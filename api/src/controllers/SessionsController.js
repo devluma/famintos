@@ -3,6 +3,12 @@ const generateHash = require('../utils/generateHash');
 const connection = require('../database/connection');
 
 module.exports = {
+  /**
+   * Autentica um usuário e gera o token
+   *
+   * @param {email, password} request
+   * @param {user, token} response
+   */
   async authenticate(request, response) {
     try {
       const { email, password } = request.body;
@@ -10,7 +16,7 @@ module.exports = {
 
       const user = await connection('users')
         .where({ email, password: hashPass })
-        .select('*')
+        .select(['name', 'email'])
         .first();
 
       if (!user) {
@@ -21,18 +27,31 @@ module.exports = {
         expiresIn: '24h',
       });
 
-      return response.json({ auth: true, token });
+      return response.json({ user, token });
     } catch (err) {
       return response.status(400).json(err.message);
     }
   },
+  /**
+   * Faz o logout de um usuário na aplicação
+   *
+   * @param {*} request
+   * @param {user: false, token: null} response
+   */
   async logout(request, response) {
     try {
-      return response.json({ auth: false, token: null });
+      return response.json({ user: false, token: null });
     } catch (err) {
       return response.status(400).json(err.message);
     }
   },
+  /**
+   * Verifica um token válido na aplicação
+   *
+   * @param {token} request
+   * @param {token} response
+   * @param {*} next
+   */
   async verify(request, response, next) {
     try {
       const token = request.headers['x-access-token'];

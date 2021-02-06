@@ -2,6 +2,12 @@ const connection = require('../database/connection');
 const generateSchedule = require('../utils/generateSchedule');
 
 module.exports = {
+  /**
+   * Lista todos os restaurantes cadastrados
+   *
+   * @param {page, limit} request
+   * @param {restaurants[]} response
+   */
   async index(request, response) {
     try {
       const { page = 1, limit = 10 } = request.query;
@@ -21,6 +27,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Procura um restaurante por id
+   *
+   * @param {id} request
+   * @param {restaurant} response
+   */
   async show(request, response) {
     try {
       const { id } = request.params;
@@ -31,6 +43,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Cadastra um novo restaurante
+   *
+   * @param {name} request
+   * @param {id} response
+   */
   async store(request, response) {
     try {
       const { name } = request.body;
@@ -51,6 +69,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Atualiza o nome do restaurante cadastrado
+   *
+   * @param {id, name} request
+   * @param {restaurant} response
+   */
   async update(request, response) {
     try {
       const { id } = request.params;
@@ -85,6 +109,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Remove um restaurante pelo id
+   *
+   * @param {id, authorization} request
+   * @param {null} response
+   */
   async destroy(request, response) {
     try {
       const { id } = request.params;

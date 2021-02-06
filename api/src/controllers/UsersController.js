@@ -1,6 +1,13 @@
 const connection = require('../database/connection');
+const generateHash = require('../utils/generateHash');
 
 module.exports = {
+  /**
+   * Lista todos os usuários cadastrados
+   *
+   * @param {page, limit} request
+   * @param {users[]} response
+   */
   async index(request, response) {
     try {
       const { page = 1, limit = 10 } = request.query;
@@ -20,6 +27,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Procura um usuário por id
+   *
+   * @param {id} request
+   * @param {user} response
+   */
   async show(request, response) {
     try {
       const { id } = request.params;
@@ -30,14 +43,28 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Cadastra um novo usuários
+   *
+   * @param {name, email, password} request
+   * @param {id} response
+   */
   async store(request, response) {
     try {
       const { name, email, password } = request.body;
+      const hashPass = generateHash(password);
+
+      const user = await connection('users').where({ email }).select('*').first();
+
+      if (user) {
+        return response.status(400).json({ message: 'User already exists, register a new user' });
+      }
+
       const [id] = await connection('users')
         .insert({
           name,
           email,
-          password,
+          password: hashPass,
         })
         .returning('id');
 
@@ -46,6 +73,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Atualiza o nome do usuário cadastrado
+   *
+   * @param {id, name} request
+   * @param {user} response
+   */
   async update(request, response) {
     try {
       const { id } = request.params;
@@ -54,7 +87,7 @@ module.exports = {
       const user = await connection('users').where('id', id).select('*').first();
 
       if (!user) {
-        return response.status(401).json({ erro: 'Restaurant isn`t finded' });
+        return response.status(401).json({ message: 'Restaurant isn`t finded' });
       }
 
       const attempts = user.attempts + 1;
@@ -62,7 +95,7 @@ module.exports = {
       const update = await connection('users').where({ id }).update({ name, attempts });
 
       if (!update) {
-        return response.status(401).json({ erro: 'The update has not been performed' });
+        return response.status(401).json({ message: 'The update has not been performed' });
       }
 
       const updatedRestaurantData = await connection('users').where('id', id).select('*').first();
@@ -72,6 +105,12 @@ module.exports = {
       return response.status(400).json(err);
     }
   },
+  /**
+   * Remove um usuário pelo id
+   *
+   * @param {id, authorization} request
+   * @param {null} response
+   */
   async destroy(request, response) {
     try {
       const { id } = request.params;
@@ -79,7 +118,7 @@ module.exports = {
       const user = await connection('users').where('id', id).select('id').first();
 
       if (user.id === sessionId) {
-        return response.status(401).json({ erro: 'Operation not permitted' });
+        return response.status(401).json({ message: 'Operation not permitted' });
       }
 
       await connection('users').where('id', id).delete();
