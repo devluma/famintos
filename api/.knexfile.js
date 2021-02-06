@@ -1,7 +1,7 @@
-require('dotenv').config();
+require('dotenv-safe').config();
 
-const { APP_DEBUG } = process.env;
-const debug = JSON.parse(APP_DEBUG) || false;
+const { API_DEBUG } = process.env;
+const debug = JSON.parse(API_DEBUG) || false;
 
 module.exports = {
   development: {
