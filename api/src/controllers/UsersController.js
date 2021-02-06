@@ -32,11 +32,12 @@ module.exports = {
   },
   async store(request, response) {
     try {
-      const { name, email } = request.body;
+      const { name, email, password } = request.body;
       const [id] = await connection('users')
         .insert({
           name,
           email,
+          password,
         })
         .returning('id');
 
