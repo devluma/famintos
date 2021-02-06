@@ -49,27 +49,18 @@ Para que eu possa me despir de preconceitos e preparar o psicológico.
 - **Critério de Aceitação**
 - ❌ Mostrar de alguma forma o resultado da votação.
 
-## 💻 Como usar o Projeto
+## 💻 Tecnologias utilizadas no Projeto
 
-O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`. Segue abaixo os comandos para **serem utilizados** ao rodar o `projeto`.
+O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`. Segue abaixo as principais tecnologias utilizadas neste projeto:
 
-- Gera o pacote com os fontes já compactados em `tar.bz2`
-
-```
-yarn build:deploy
-```
-
-- Instala as `libs` do `node_modules` em `produção`
-
-```
-yarn build:install
-```
-
-- Executa o `node` em `produção`
-
-```
-yarn prod:server
-```
+- NodeJS ✔️
+- ReactJS ✔️
+- React-hooks ✔️
+- Sqlite ✔️
+- Postgres ✔️
+- Typescript ✔️
+- Styled-components ✔️
+- JWT Auth ✔️
 
 ## Considerações
 
