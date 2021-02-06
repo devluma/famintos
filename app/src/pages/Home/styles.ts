@@ -89,11 +89,11 @@ export const SectionFooter = styled.footer`
     svg {
       width: 20px;
       height: 20px;
-      margin-right: 3px;
+      margin: 0px 4px 0px 4px;
     }
   }
 
-  a:last-child {
+  a:not(:first-child) {
     margin-left: 25px;
   }
 `;

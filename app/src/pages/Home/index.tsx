@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiAperture, FiBarChart2 } from 'react-icons/fi';
+import { FiAperture, FiBarChart2, FiUserCheck } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import {
@@ -31,12 +31,16 @@ const Home: React.FC = () => (
           <p>Registre uma opção de <b>Restaurante</b> para o seu <b>Time</b>.</p>
         </SectionArticle>
         <SectionFooter>
+          <Link to="/signin">
+            <FiUserCheck /> Login
+          </Link>
+
           <Link to="/register">
             <FiAperture /> Registrar
           </Link>
 
           <Link to="/dashboard">
-            <FiBarChart2 /> Ver os Vencedores
+            <FiBarChart2 /> Dashboard
           </Link>
         </SectionFooter>
       </Section>
