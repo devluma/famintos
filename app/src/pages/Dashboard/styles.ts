@@ -41,7 +41,7 @@ export const Content = styled.main`
     svg {
       width: 20px;
       height: 20px;
-      margin-right: 3px;
+      margin: 0px 4px 0px 4px;
     }
   }
 `;
