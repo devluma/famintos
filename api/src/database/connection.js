@@ -1,5 +1,5 @@
 const knex = require('knex');
-const knexfile = require('../../.knexfile');
+const knexfile = require('../../knexfile');
 
 const { NODE_ENV, API_DEBUG } = process.env;
 const env = NODE_ENV || 'development';
