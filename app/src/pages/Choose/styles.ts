@@ -41,7 +41,7 @@ export const Content = styled.main`
     svg {
       width: 20px;
       height: 20px;
-      margin-right: 3px;
+      margin: 0px 4px 0px 4px;
     }
   }
 `;
@@ -52,15 +52,43 @@ export const Section = styled.section`
   display: flex;
   flex-flow: column;
 
-  h3 {
+  form > h3 {
     font-weight: bold;
     text-align: center;
     padding-bottom: 18px;
   }
+
+  form {
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    white-space: nowrap;
+    display: block;
+    list-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+
+    button {
+      margin-left: 10px;
+    }
+  }
 `;
 
 export const ListContainer = styled.ul`
-  overflow-x: hidden;
+  margin: 0px 10px 0px 10px;
+  /* overflow-x: hidden;
   overflow-y: scroll;
   white-space: nowrap;
   width: 100%;
@@ -72,7 +100,7 @@ export const ListContainer = styled.ul`
 
   &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 export const ItemContent = styled.li`
