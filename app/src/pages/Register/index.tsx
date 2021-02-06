@@ -1,15 +1,16 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import { FiArrowLeft, FiSave, FiMail, FiUser, FiAward } from 'react-icons/fi';
+import { FiSave, FiMail, FiUser, FiCompass, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
 import {
   Container,
   Content,
   Section,
+  ButtonGroup,
 } from './styles';
 
 import Header from '../../components/Header';
@@ -18,22 +19,29 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { useToast } from '../../hooks/toast';
+
 import getValidationErrors from '../../utils/getValidationErrors';
+
+import api from '../../services/api';
 
 interface RegisterFormData {
   name: string;
   email: string;
-  suggestion: string;
+  password: string;
 }
 
 const Register: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: RegisterFormData) => {
       try {
+        setLoading(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -48,7 +56,9 @@ const Register: React.FC = () => {
           abortEarly: false,
         });
 
-        history.push('/choose');
+        await api.post('/users', data).catch((err) => Promise.reject(err));
+
+        history.push('/signin');
 
         addToast({
           type: 'success',
@@ -56,17 +66,30 @@ const Register: React.FC = () => {
           description: 'Você já pode votar em um restaurante disponível!',
         });
       } catch (err) {
+        const { response } = err;
+
+        let message = 'Ocorreu um erro ao fazer cadastro, tente novamente.';
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
         }
 
+        if (response && response.data) {
+          const dataErr = response.data;
+
+          message = dataErr.message;
+          formRef.current?.setErrors({ email: message });
+        }
+
         addToast({
           type: 'error',
           title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao fazer cadastro, tente novamente.',
+          description: message,
         });
+      } finally {
+        setLoading(false);
       }
     },
     [addToast, history],
@@ -80,33 +103,43 @@ const Register: React.FC = () => {
         <Section>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <Input
-              name="suggestion"
-              icon={FiAward}
-              placeholder="Sugestão de Restaurante"
-            />
-
-            <Input
+              type="text"
               name="name"
               icon={FiUser}
               placeholder="Nome do Colaborador"
             />
 
             <Input
+              type="email"
               name="email"
               icon={FiMail}
               placeholder="E-mail"
             />
 
-            <Button type="submit">
-              <FiSave /> Salvar
+            <Input
+              type="password"
+              name="password"
+              icon={FiCompass}
+              placeholder="Senha"
+            />
+
+            <Button type="submit" loading={loading}>
+              <FiSave /> Registrar
             </Button>
           </Form>
         </Section>
 
-        <Link to="/">
-          <FiArrowLeft />
-          Voltar para a home
-        </Link>
+        <ButtonGroup>
+          <Link to="/">
+            <FiArrowLeft />
+            Voltar para a home
+          </Link>
+
+          <Link to="/signin">
+            Fazer login
+            <FiArrowRight />
+          </Link>
+        </ButtonGroup>
       </Content>
 
       <Footer text="©2021 - DBServer - Todos os direitos reservados." />
