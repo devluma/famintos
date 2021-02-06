@@ -33,12 +33,10 @@ module.exports = {
   async store(request, response) {
     try {
       const { name, email } = request.body;
-      const attempts = 1;
       const [id] = await connection('users')
         .insert({
           name,
           email,
-          attempts,
         })
         .returning('id');
 
