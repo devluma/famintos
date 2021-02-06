@@ -34,7 +34,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "dev:server": "react-scripts start",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll false",
     "eject": "react-scripts eject"
