@@ -33,18 +33,18 @@ Para que **eu consiga democraticamente levar meus colegas a comer onde eu gosto*
 
 ### Estória 2:
 
-Eu como facilitador do processo de votação
-Quero que um restaurante não possa ser repetido durante a semana
-Para que não precise ouvir reclamações infinitas!
+Eu como **facilitador do processo de votação**
+Quero **que um restaurante não possa ser repetido durante a semana**
+Para que **não precise ouvir reclamações infinitas!**
 
 - **Critério de Aceitação**
 - ❌ O mesmo restaurante não pode ser escolhido mais de uma vez durante a semana.
 
 ### Estória 3:
 
-Eu como profissional faminto
-Quero saber antes do meio dia qual foi o restaurante escolhido
-Para que eu possa me despir de preconceitos e preparar o psicológico.
+Eu como **profissional faminto**
+Quero **saber antes do meio dia qual foi o restaurante escolhido**
+Para que **eu possa me despir de preconceitos e preparar o psicológico.**
 
 - **Critério de Aceitação**
 - ❌ Mostrar de alguma forma o resultado da votação.
@@ -83,6 +83,7 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - Melhorar os Styled-components separando eles em componentes;
   - Melhorar a responsividade da aplicação utilizando @media no CSS;
   - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
+  - Melhorar os gráficos de exibição dos registros;
   - Refatorar as Controllers da API e separar as consultas em Models/Entities;
   - Criar script de build e deploy na API;
   - Adicionar mais casos de testes na Aplicação;
