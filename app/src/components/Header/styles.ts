@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  padding: 22px 0;
+  padding: 10px 0px 12px 0px;
 `;
 
 export const Content = styled.div`
@@ -13,5 +13,27 @@ export const Content = styled.div`
 
   > img {
     height: 90px;
+  }
+
+  > div {
+    padding: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    h1 {
+      padding-bottom: 5px;
+    }
+
+    span {
+      text-align: right;
+
+      b {
+        color: green;
+        padding: 0 2px 0 2px;
+      }
+    }
   }
 `;

@@ -1,17 +1,20 @@
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 
 import logoImg from '../../assets/logo.svg';
 import { Container, Content } from './styles';
 
 interface HeaderProps {
-  text: string;
+  title: string;
+  description?: string;
   logoImgSrc?: string;
   logoImgAlt?: string;
   className?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  text,
+  title,
+  description,
   className = '',
   logoImgSrc = logoImg,
   logoImgAlt = 'Faminto',
@@ -21,7 +24,10 @@ const Header: React.FC<HeaderProps> = ({
     <Content>
       <img src={logoImgSrc} alt={logoImgAlt} />
 
-      <h1>{text}</h1>
+      <div>
+        <h1>{title}</h1>
+        <span>{ReactHtmlParser(description || '')}</span>
+      </div>
 
       {children}
     </Content>
