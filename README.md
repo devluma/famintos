@@ -71,13 +71,17 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
 ## Considerações
 
 - **O que vale destacar no código implementado?**
-  - A implementação de devOps com o docker;
+  - A implementação da interface da apliacação utilizando typescript e Styled-components;
   - A separação da api de consulta do app;
+  - A implementação do mecanismo de autenticação como JWT;
+  - A possibilidade de implementação de devOps com o docker;
 - **O que poderia ser feito para melhorar o sistema?**
-  - Adicionar um mecanismo de autenticação como JWT ou OAuth2;
-  - Criar script de build e deploy;
+  - Melhorar os Styled-components separando os em componentes;
+  - Melhorar responsividade da aplicação utilizando @media no CSS;
+  - Refatorar as Controllers da API e separar as consultas em Models/Entities;
+  - Criar script de build e deploy na API;
 - **Algo a mais que você tenha a dizer!**
-  - Nada mais tenho a declarar.
+  - Implementei algumas funcionalidades à mais no teste, como à separação das camadas da API e APP, também implementei o APP utilizando Typescript para demonstrar habilidades utilizando tanto javascript e typescript no desenvolvimento de Aplicações Web.
   
 😉 Obrigado por me proporcionar este desafio! <br />
 🌈 Espero ansiosamente pelo seu feedback! <br />
