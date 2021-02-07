@@ -77,6 +77,7 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - A implementação do mecanismo de autenticação utilizando JWT;
   - A possibilidade de implementação de DevOps com o docker;
   - A implementação das camada de consulta com o database utilizando um query builder;
+  - A implementação de migrations e seeds para facilitar a criação da estrutura de storage;
   - A implementação de testes tanto na API como na interface do APP.
 - **O que poderia ser feito para melhorar o sistema?**
   - Melhorar os Styled-components separando os em componentes;
