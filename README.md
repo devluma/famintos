@@ -53,16 +53,17 @@ Para que eu possa me despir de preconceitos e preparar o psicológico.
 
 O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`. Segue abaixo as principais tecnologias utilizadas neste projeto:
 
-- JavaScript
-- HTML/CSS
+- JavaScript ✔️
+- HTML/CSS ✔️
 - NodeJS ✔️
 - ReactJS ✔️
 - React-hooks ✔️
+- React-components ✔️
+- Styled-components ✔️
+- Typescript ✔️
+- JWT Auth ✔️
 - Sqlite ✔️
 - Postgres ✔️
-- Typescript ✔️
-- Styled-components ✔️
-- JWT Auth ✔️
 
 ## Considerações
 
