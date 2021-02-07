@@ -230,7 +230,7 @@ const Choose: React.FC = () => {
           },
         ],
       });
-    }, [signOut],
+    }, [signOut, history],
   );
 
   useEffect(
