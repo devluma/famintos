@@ -1,7 +1,10 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { FiX, FiThumbsUp, FiAward, FiSearch } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
@@ -17,9 +20,12 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Input from '../../components/Input';
-// import Button from '../../components/Button';
+import BtnSmall from '../../components/Button/BtnSmall';
+import BtnMedium from '../../components/Button/BtnMedium';
 
+import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 
 interface ChooseFormData {
@@ -29,12 +35,16 @@ interface ChooseFormData {
 
 const Choose: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const [loading, setLoading] = useState(false);
+  const { user, signOut } = useAuth();
   const { addToast } = useToast();
   const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: ChooseFormData) => {
       try {
+        setLoading(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -49,8 +59,8 @@ const Choose: React.FC = () => {
 
         addToast({
           type: 'success',
-          title: 'Cadastro realizado!',
-          description: 'Você adicionou um novo restaurante!',
+          title: 'Pesquisa realizada!',
+          description: 'Você já pode votar em um restaurante disponível!',
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -58,12 +68,8 @@ const Choose: React.FC = () => {
 
           formRef.current?.setErrors(errors);
         }
-
-        addToast({
-          type: 'error',
-          title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao fazer o cadastro, tente novamente.',
-        });
+      } finally {
+        setLoading(false);
       }
     },
     [addToast, history],
@@ -81,93 +87,130 @@ const Choose: React.FC = () => {
     }, [history],
   );
 
+  const handleSignOut = useCallback(
+    async () => {
+      confirmAlert({
+        title: 'Confirme para sair',
+        message: 'Você tem certeza de quer fazer isso?',
+        buttons: [
+          {
+            label: 'Sim',
+            onClick: () => signOut(),
+          },
+          {
+            label: 'Não',
+            onClick: () => false,
+          },
+        ],
+      });
+    }, [signOut],
+  );
+
   return (
     <Container>
-      <Header text="Escolha um Restaurante para Almoçar" />
+      <Header
+        title="Escolha um Restaurante para Almoçar"
+        description="Pesquise um restaurante bom para almoçar"
+      />
 
       <Content>
         <Section>
+          <h3>Lista dos Restaurantes Disponíveis</h3>
+
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h3>Lista dos Restaurantes Disponíveis</h3>
+            <Input
+              name="suggestion"
+              icon={FiAward}
+              placeholder="Sugestão de Restaurante"
+            />
 
-            <div>
-              <Input
-                name="suggestion"
-                icon={FiAward}
-                placeholder="Sugestão de Restaurante"
-              />
-
-              <button type="button">
-                <FiSearch size={40} color="#0055ff" />
-              </button>
-            </div>
-
-            <ListContainer>
-              <ItemContent>
-                <strong>Restaurante do João</strong>
-                <span>&gt;&gt;</span>
-                <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
-
-                <div>
-                  <button type="button" onClick={handleLiked}>
-                    <FiThumbsUp size={20} color="#0055ff" />
-                  </button>
-                </div>
-              </ItemContent>
-
-              <ItemContent>
-                <strong>Restaurante do João</strong>
-                <span>&gt;&gt;</span>
-                <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
-
-                <div>
-                  <button type="button" onClick={handleLiked}>
-                    <FiThumbsUp size={20} color="#0055ff" />
-                  </button>
-                </div>
-              </ItemContent>
-
-              <ItemContent>
-                <strong>Restaurante do João</strong>
-                <span>&gt;&gt;</span>
-                <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
-
-                <div>
-                  <button type="button" onClick={handleLiked}>
-                    <FiThumbsUp size={20} color="#0055ff" />
-                  </button>
-                </div>
-              </ItemContent>
-
-              <ItemContent>
-                <strong>Restaurante do João</strong>
-                <span>&gt;&gt;</span>
-                <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
-
-                <div>
-                  <button type="button" onClick={handleLiked}>
-                    <FiThumbsUp size={20} color="#0055ff" />
-                  </button>
-                </div>
-              </ItemContent>
-
-              <ItemContent>
-                <strong>Restaurante do João</strong>
-                <span>&gt;&gt;</span>
-                <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
-
-                <div>
-                  <button type="button" onClick={handleLiked}>
-                    <FiThumbsUp size={20} color="#0055ff" />
-                  </button>
-                </div>
-              </ItemContent>
-            </ListContainer>
+            <BtnMedium type="submit" loading={loading}>
+              <FiSearch size={40} color="##666360" />
+            </BtnMedium>
           </Form>
+
+          <ListContainer>
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+
+            <ItemContent>
+              <strong>Restaurante do João</strong>
+              <span><b>&gt;&gt;</b></span>
+              <p><b>Este Restaurante</b> já foi escolhido <b>6</b> vezes</p>
+              <div>
+                <BtnSmall type="button" onClick={handleLiked}>
+                  <FiThumbsUp size={20} color="##666360" />
+                </BtnSmall>
+              </div>
+            </ItemContent>
+          </ListContainer>
         </Section>
 
-        <Link to="/">
-          <FiX /> Cancelar e voltar
+        <Link to="/" onClick={handleSignOut}>
+          <FiX /> Cancelar e sair
         </Link>
       </Content>
 

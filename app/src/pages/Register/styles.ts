@@ -21,7 +21,7 @@ export const Content = styled.main`
 `;
 
 export const Section = styled.section`
-  height: 398px;
+  height: 360px;
   padding: 2em;
   display: flex;
   flex-flow: column;

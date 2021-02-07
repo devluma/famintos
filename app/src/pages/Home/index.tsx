@@ -16,7 +16,7 @@ import Footer from '../../components/Footer';
 
 const Home: React.FC = () => (
   <Container>
-    <Header text="APP dos Famintos" />
+    <Header title="APP dos Famintos" />
 
     <Content>
       <Section>
@@ -28,7 +28,7 @@ const Home: React.FC = () => (
           <p>Como eles são muito democráticos, todos os dias eles gastam
             30 minutos decidindo onde eles irão almoçar.
           </p>
-          <p>Registre uma opção de <b>Restaurante</b> para o seu <b>Time</b>.</p>
+          <p>Registre uma opção de <b>Restaurante</b> para o seu <b>Time.</b></p>
         </SectionArticle>
         <SectionFooter>
           <Link to="/signin">

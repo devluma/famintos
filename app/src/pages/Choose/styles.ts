@@ -52,7 +52,7 @@ export const Section = styled.section`
   display: flex;
   flex-flow: column;
 
-  form > h3 {
+  > h3 {
     font-weight: bold;
     text-align: center;
     padding-bottom: 18px;
@@ -60,98 +60,46 @@ export const Section = styled.section`
 
   form {
     width: 100%;
-    height: 100%;
-    margin-top: 25px;
-    margin-bottom: 20px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    white-space: nowrap;
-    display: block;
-    list-style: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
 
-    button {
+    /* button {
+      border-radius: 8px;
+      border: 2px solid #ccc;
       margin-left: 10px;
-    }
+      padding: 4px;
+    } */
   }
 `;
 
 export const ListContainer = styled.ul`
-  margin: 0px 10px 0px 10px;
-  /* overflow-x: hidden;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  padding: 8px;
+  margin: 0px 2px 0px 2px;
+  overflow-x: hidden;
   overflow-y: scroll;
   white-space: nowrap;
-  width: 100%;
-  height: 100%;
-  margin-top: 25px;
-  margin-bottom: 20px;
   display: block;
   list-style: none;
 
   &::-webkit-scrollbar {
     display: none;
-  } */
+  }
 `;
 
 export const ItemContent = styled.li`
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 
   background: #f2f2f2;
-  padding: 12px;
+  padding: 5px 10px 5px 10px;
   margin-bottom: 4px;
   border: 2px solid #ccc;
   border-radius: 8px;
-  position: relative;
-
-  strong {
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 5px;
-    padding: 5px;
-  }
-
-  span {
-    text-align: center;
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  p {
-    width: 100%;
-    text-align: left;
-    font-size: 12px;
-    font-style: italic;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 8px;
-  }
-
-  div {
-    margin-left: 5px;
-    padding: 5px;
-  }
-
-  div > button {
-    cursor: pointer;
-    outline: none;
-    border-radius: 4px;
-    border: 0px;
-
-    &:hover {
-      background: ${shade(0.2, '#d6f5d6')};
-      color: #d6f5d6;
-    }
-  }
 `;

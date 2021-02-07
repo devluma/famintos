@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from "react-apexcharts";
+
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -8,18 +9,20 @@ import {
   Content,
   Section,
   GraphContainer,
+  ButtonGroup,
 } from './styles';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
+import IRestaurant from '../../interfaces/Restaurant';
+
 const Dashboard: React.FC = () => {
+  const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
   const history = useHistory();
 
-  const restaurants = ['Restaurante 1', 'Restaurante 2', 'Restaurante 3', 'Restaurante 4'];
-
-  const state = {
-    optionsBarLevel: {
+  const apexCharts = {
+    optionsBar: {
       chart: {
         id: "basic-bar",
         toolbar: {
@@ -27,36 +30,20 @@ const Dashboard: React.FC = () => {
         },
       },
       xaxis: {
-        categories: restaurants,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-        },
-      },
-    },
-    seriesBarLevel: [
-      {
-        name: "pontuação",
-        data: [40, 30, 8, 10],
-      },
-    ],
-
-    optionsbar: {
-      chart: {
-        id: "basic-bar",
-        toolbar: {
-          show: false,
-        },
-      },
-      xaxis: {
-        categories: restaurants,
+        categories: [
+          "Restaurante 1",
+          "Restaurante 2",
+          "Restaurante 3",
+          "Restaurante 4",
+          "Restaurante 5",
+          "Restaurante 6",
+        ],
       },
     },
     seriesBar: [
       {
-        name: "pontuação",
-        data: [30, 40, 45, 50],
+        name: "Pontuação",
+        data: [10, 20, 40, 60, 110, 112],
       },
     ],
     optionsRadial: {
@@ -92,7 +79,6 @@ const Dashboard: React.FC = () => {
               opacity: 0.35,
             },
           },
-
           dataLabels: {
             showOn: "always",
             name: {
@@ -125,38 +111,30 @@ const Dashboard: React.FC = () => {
     seriesRadial: [76],
   };
 
+  useEffect(() => {
+
+  }, []);
+
   return (
     <Container>
-      <Header text="Dashboard dos Vencedores" />
+      <Header
+        title="Dashboard do Vencedor"
+        description="O restaurante vencedor de hoje foi o <b>Restaurante do Tio João</b>"
+      />
 
       <Content>
         <Section>
           <h3>Lista dos Restaurantes Vencedores</h3>
-          <span>O restaurante vencedor de hoje foi o <b>Restaurante do Tio João</b></span>
           <GraphContainer>
             <section>
               <header>
-                <h2>Escolhas do Dia</h2>
-              </header>
-              <article>
-                <Chart
-                  key="of-the-day"
-                  options={state.optionsBarLevel}
-                  series={state.seriesBarLevel}
-                  type="bar"
-                />
-              </article>
-            </section>
-
-            <section>
-              <header>
-                <h2>Total por Pontos</h2>
+                <h2>Escolha por Pontos</h2>
               </header>
               <article>
                 <Chart
                   key="of-total-points"
-                  options={state.optionsbar}
-                  series={state.seriesBar}
+                  options={apexCharts.optionsBar}
+                  series={apexCharts.seriesBar}
                   type="bar"
                 />
               </article>
@@ -169,8 +147,8 @@ const Dashboard: React.FC = () => {
               <article>
                 <Chart
                   key="of-the-winner"
-                  options={state.optionsRadial}
-                  series={state.seriesRadial}
+                  options={apexCharts.optionsRadial}
+                  series={apexCharts.seriesRadial}
                   type="radialBar"
                 />
               </article>
@@ -178,10 +156,12 @@ const Dashboard: React.FC = () => {
           </GraphContainer>
         </Section>
 
-        <Link to="/">
-          <FiArrowLeft />
-          Voltar para a home
-        </Link>
+        <ButtonGroup>
+          <Link to="/">
+            <FiArrowLeft />
+            Votar para a home
+          </Link>
+        </ButtonGroup>
       </Content>
 
       <Footer text="©2021 - DBServer - Todos os direitos reservados." />

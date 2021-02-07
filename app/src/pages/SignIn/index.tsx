@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { FiArrowLeft, FiUnlock, FiMail, FiCompass } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -31,7 +31,6 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const { signIn } = useAuth();
   const { addToast } = useToast();
@@ -59,8 +58,6 @@ const SignIn: React.FC = () => {
           password: data.password,
         });
 
-        // history.push('/choose');
-
         addToast({
           type: 'success',
           title: 'Login realizado!',
@@ -69,7 +66,7 @@ const SignIn: React.FC = () => {
       } catch (err) {
         const { response } = err;
 
-        let message = 'Ocorreu um erro ao fazer cadastro, tente novamente.';
+        let message = 'Ocorreu um erro ao fazer login, tente novamente.';
 
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -86,7 +83,7 @@ const SignIn: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro no cadastro',
+          title: 'Erro na autenticação',
           description: message,
         });
       } finally {
@@ -98,7 +95,7 @@ const SignIn: React.FC = () => {
 
   return (
     <Container>
-      <Header text="Autenticar o Colaborador" />
+      <Header title="Autenticar o Colaborador" />
 
       <Content>
         <Section>

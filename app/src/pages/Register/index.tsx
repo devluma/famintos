@@ -97,7 +97,7 @@ const Register: React.FC = () => {
 
   return (
     <Container>
-      <Header text="Registrar um Colaborador" />
+      <Header title="Registrar um Colaborador" />
 
       <Content>
         <Section>

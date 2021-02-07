@@ -21,7 +21,6 @@ export const Content = styled.main`
 
   a {
     color: #666360;
-    display: block;
     margin-bottom: 24px;
     text-decoration: none;
     transition: color 0.2s;
@@ -44,7 +43,7 @@ export const Content = styled.main`
 `;
 
 export const Section = styled.section`
-  height: 398px;
+  height: 320px;
   padding: 2em;
   display: flex;
   flex-flow: column;
