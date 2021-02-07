@@ -85,7 +85,8 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
   - Refatorar as Controllers da API e separar as consultas em Models/Entities;
   - Criar script de build e deploy na API;
-  - Adicionar mais casos de testes na Aplicação.
+  - Adicionar mais casos de testes na Aplicação;
+  - Adicionar uma páginação na lista de restaurantes.
 - **Algo a mais que você tenha a dizer!**
   - Implementei algumas funcionalidades a mais no teste, como a separação das camadas da API e APP, possibilidade de utilizar um database, e também implementei o APP utilizando Typescript para demonstrar habilidades utilizando tanto javascript e typescript no desenvolvimento de Aplicações Web.
   
