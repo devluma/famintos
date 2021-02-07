@@ -16,9 +16,9 @@ Vamos fazer um pequeno sistema que auxilie essa tomada de decisão!
 - Crie um readme que inclua:
   - *Requisitos de ambiente necessários para compilar e rodar o software* ✔️
   - *Instruções de como utilizar o sistema* ❌
-  - [O que vale destacar no código implementado?](##Considerações) 📌
-  - [O que poderia ser feito para melhorar o sistema?](##Considerações) 📌
-  - [Algo a mais que você tenha a dizer](##Considerações) 📌
+  - [O que vale destacar no código implementado?](#Considerações) 📌
+  - [O que poderia ser feito para melhorar o sistema?](#Considerações) 📌
+  - [Algo a mais que você tenha a dizer](#Considerações) 📌
 
 ## 🔖 Estórias
 
@@ -49,38 +49,45 @@ Para que eu possa me despir de preconceitos e preparar o psicológico.
 - **Critério de Aceitação**
 - ❌ Mostrar de alguma forma o resultado da votação.
 
-## 💻 Como usar o Projeto
+## 💻 Tecnologias utilizadas no Projeto
 
-O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`. Segue abaixo os comandos para **serem utilizados** ao rodar o `projeto`.
+O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`, como Storage no ambiente de desenvolvimento e testes foi utilizado o `Sqlite`. E para rodar os testes da aplicação foi utilizado o `Jest` com o `Supertest`.
 
-- Gera o pacote com os fontes já compactados em `tar.bz2`
+Segue abaixo as principais tecnologias utilizadas neste projeto:
 
-```
-yarn build:deploy
-```
-
-- Instala as `libs` do `node_modules` em `produção`
-
-```
-yarn build:install
-```
-
-- Executa o `node` em `produção`
-
-```
-yarn prod:server
-```
+- JavaScript ✔️
+- HTML/CSS ✔️
+- NodeJS ✔️
+- ReactJS ✔️
+- React-hooks ✔️
+- React-components ✔️
+- Styled-components ✔️
+- Typescript ✔️
+- JWT Auth ✔️
+- Jest/Supertest ✔️
+- KnexJS Query Builder ✔️
+- Sqlite ✔️
+- Postgres ✔️
 
 ## Considerações
 
 - **O que vale destacar no código implementado?**
-  - A implementação de devOps com o docker;
-  - A separação da api de consulta do app;
+  - A implementação da interface da apliacação utilizando typescript e Styled-components;
+  - A separação da API de consulta do APP;
+  - A implementação do mecanismo de autenticação utilizando JWT;
+  - A possibilidade de implementação de DevOps com o docker;
+  - A implementação das camada de consulta com o database utilizando um query builder;
+  - A implementação de migrations e seeds para facilitar a criação da estrutura de storage;
+  - A implementação de testes tanto na API como na interface do APP.
 - **O que poderia ser feito para melhorar o sistema?**
-  - Adicionar um mecanismo de autenticação como JWT ou OAuth2;
-  - Criar script de build e deploy;
+  - Melhorar os Styled-components separando eles em componentes;
+  - Melhorar a responsividade da aplicação utilizando @media no CSS;
+  - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
+  - Refatorar as Controllers da API e separar as consultas em Models/Entities;
+  - Criar script de build e deploy na API;
+  - Adicionar mais casos de testes na Aplicação.
 - **Algo a mais que você tenha a dizer!**
-  - Nada mais tenho a declarar.
+  - Implementei algumas funcionalidades a mais no teste, como a separação das camadas da API e APP, possibilidade de utilizar um database, e também implementei o APP utilizando Typescript para demonstrar habilidades utilizando tanto javascript e typescript no desenvolvimento de Aplicações Web.
   
 😉 Obrigado por me proporcionar este desafio! <br />
 🌈 Espero ansiosamente pelo seu feedback! <br />
