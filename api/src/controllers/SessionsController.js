@@ -20,7 +20,7 @@ module.exports = {
         .first();
 
       if (!user) {
-        return response.status(401).json({ erro: 'Invalid password or user' });
+        return response.status(401).json({ message: 'Invalid password or user' });
       }
 
       const token = jwt.sign({ id: user.id }, process.env.API_SECRET, {
@@ -29,7 +29,7 @@ module.exports = {
 
       return response.json({ user, token });
     } catch (err) {
-      return response.status(400).json(err.message);
+      return response.status(400).json(err);
     }
   },
   /**
@@ -42,7 +42,7 @@ module.exports = {
     try {
       return response.json({ user: false, token: null });
     } catch (err) {
-      return response.status(400).json(err.message);
+      return response.status(400).json(err);
     }
   },
   /**
@@ -72,7 +72,7 @@ module.exports = {
 
       return response.json({ token });
     } catch (err) {
-      return response.status(400).json(err.message);
+      return response.status(400).json(err);
     }
   },
 };

@@ -11,6 +11,7 @@ module.exports = {
   async index(request, response) {
     try {
       const { page = 1, limit = 10 } = request.query;
+      // const { name } = request.body;
 
       const [count] = await connection('restaurants').count();
 
@@ -83,7 +84,7 @@ module.exports = {
       const restaurant = await connection('restaurants').where('id', id).select('*').first();
 
       if (!restaurant) {
-        return response.status(401).json({ erro: 'Restaurant isn`t finded' });
+        return response.status(401).json({ message: 'Restaurant isn`t finded' });
       }
 
       const schedule = generateSchedule();
@@ -94,7 +95,7 @@ module.exports = {
         .update({ name, schedule, attempts });
 
       if (!update) {
-        return response.status(401).json({ erro: 'The update has not been performed' });
+        return response.status(401).json({ message: 'The update has not been performed' });
       }
 
       const updatedRestaurantData = await connection('restaurants')
@@ -122,7 +123,7 @@ module.exports = {
       const restaurant = await connection('restaurants').where('id', id).select('id').first();
 
       if (restaurant.id === sessionId) {
-        return response.status(401).json({ erro: 'Operation not permitted' });
+        return response.status(401).json({ message: 'Operation not permitted' });
       }
 
       await connection('restaurants').where('id', id).delete();
