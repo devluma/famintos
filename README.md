@@ -24,8 +24,8 @@ Vamos fazer um pequeno sistema que auxilie essa tomada de decisão!
 
 ### Estória 1:
 
-Eu como **profissional faminto;**
-Quero **votar no meu restaurante favorito;**
+Eu como **profissional faminto;** <br />
+Quero **votar no meu restaurante favorito;** <br />
 Para que **eu consiga democraticamente levar meus colegas a comer onde eu gosto.**
 
 - **Critério de Aceitação**
@@ -33,8 +33,8 @@ Para que **eu consiga democraticamente levar meus colegas a comer onde eu gosto.
 
 ### Estória 2:
 
-Eu como **facilitador do processo de votação;**
-Quero **que um restaurante não possa ser repetido durante a semana;**
+Eu como **facilitador do processo de votação;** <br />
+Quero **que um restaurante não possa ser repetido durante a semana;** <br />
 Para que **não precise ouvir reclamações infinitas!.**
 
 - **Critério de Aceitação**
@@ -42,8 +42,8 @@ Para que **não precise ouvir reclamações infinitas!.**
 
 ### Estória 3:
 
-Eu como **profissional faminto;**
-Quero **saber antes do meio dia qual foi o restaurante escolhido;**
+Eu como **profissional faminto;** <br />
+Quero **saber antes do meio dia qual foi o restaurante escolhido;** <br />
 Para que **eu possa me despir de preconceitos e preparar o psicológico.**
 
 - **Critério de Aceitação**
