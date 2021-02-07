@@ -51,7 +51,9 @@ Para que eu possa me despir de preconceitos e preparar o psicológico.
 
 ## 💻 Tecnologias utilizadas no Projeto
 
-O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`. Segue abaixo as principais tecnologias utilizadas neste projeto:
+O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `Typescript`,  `Styled-components` e `Postgres`, como Database no ambiente de desenvolvimento e testes foi utilizado o `Sqlite`. Para os testes da aplicação foi utilizado o `Jest` com o `Supertest`. 
+
+Segue abaixo as principais tecnologias utilizadas neste projeto:
 
 - JavaScript ✔️
 - HTML/CSS ✔️
@@ -62,6 +64,7 @@ O projeto foi criado utilizando as seguintes tecnologias: `NodeJS`, `ReactJS`, `
 - Styled-components ✔️
 - Typescript ✔️
 - JWT Auth ✔️
+- Jest/Supertest ✔️
 - Sqlite ✔️
 - Postgres ✔️
 
