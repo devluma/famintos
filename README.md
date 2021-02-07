@@ -80,7 +80,7 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - A implementação de migrations e seeds para facilitar a criação da estrutura de storage;
   - A implementação de testes tanto na API como na interface do APP.
 - **O que poderia ser feito para melhorar o sistema?**
-  - Melhorar os Styled-components separando os em componentes;
+  - Melhorar os Styled-components separando eles em componentes;
   - Melhorar a responsividade da aplicação utilizando @media no CSS;
   - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
   - Refatorar as Controllers da API e separar as consultas em Models/Entities;
