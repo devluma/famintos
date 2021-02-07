@@ -75,11 +75,12 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - A implementação da interface da apliacação utilizando typescript e Styled-components;
   - A separação da api de consulta do app;
   - A implementação do mecanismo de autenticação utilizando JWT;
-  - A possibilidade de implementação de devOps com o docker;
+  - A possibilidade de implementação de DevOps com o docker;
   - A implementação das camada de consulta com o database utilizando um query builder.
 - **O que poderia ser feito para melhorar o sistema?**
   - Melhorar os Styled-components separando os em componentes;
   - Melhorar responsividade da aplicação utilizando @media no CSS;
+  - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
   - Refatorar as Controllers da API e separar as consultas em Models/Entities;
   - Criar script de build e deploy na API.
 - **Algo a mais que você tenha a dizer!**
