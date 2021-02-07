@@ -73,7 +73,7 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
 
 - **O que vale destacar no código implementado?**
   - A implementação da interface da apliacação utilizando typescript e Styled-components;
-  - A separação da api de consulta do app;
+  - A separação da API de consulta do APP;
   - A implementação do mecanismo de autenticação utilizando JWT;
   - A possibilidade de implementação de DevOps com o docker;
   - A implementação das camada de consulta com o database utilizando um query builder;
