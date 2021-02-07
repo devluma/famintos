@@ -10,22 +10,32 @@ module.exports = {
    */
   async index(request, response) {
     try {
-      const { page = 1, limit = 10 } = request.query;
-      // const { name } = request.body;
+      const { name, page = 1, limit = 100 } = request.query;
 
       const [count] = await connection('restaurants').count();
 
-      const restaurants = await connection('restaurants')
+      let restaurants = await connection('restaurants')
         .select(['restaurants.*'])
         .groupBy('restaurants.id')
         .limit(limit)
-        .offset((page - 1) * limit);
+        .offset((page - 1) * limit)
+        .orderBy('id', 'desc');
+
+      if (name) {
+        const seachField = name.replace('"', '').replace('"', '');
+
+        restaurants = await connection('restaurants')
+          .where('name', 'like', `%${seachField}%`)
+          .limit(limit)
+          .offset((page - 1) * limit)
+          .orderBy('id', 'desc');
+      }
 
       response.header('X-Total-count', count['count(*)']);
 
       return response.json(restaurants);
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -53,17 +63,13 @@ module.exports = {
   async store(request, response) {
     try {
       const { name } = request.body;
-      const attempts = 1;
       const schedule = generateSchedule();
       const [id] = await connection('restaurants')
         .insert({
           name,
-          attempts,
           schedule,
         })
         .returning('id');
-
-      response.header('X-Total-attempts', attempts);
 
       return response.json({ id });
     } catch (err) {
@@ -79,7 +85,7 @@ module.exports = {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const { name } = request.body;
+      const { name, attempts } = request.body;
 
       const restaurant = await connection('restaurants').where('id', id).select('*').first();
 
@@ -87,12 +93,23 @@ module.exports = {
         return response.status(401).json({ message: 'Restaurant isn`t finded' });
       }
 
-      const schedule = generateSchedule();
-      const attempts = restaurant.attempts + 1;
+      const schedule = generateSchedule({ id: 1, name: 'Luiz' });
+
+      let upAttempts = attempts;
+
+      if (!attempts && attempts <= 0) {
+        upAttempts = restaurant.attempts + 1;
+      }
+
+      let upName = name;
+
+      if (!name && name !== '') {
+        upName = restaurant.name;
+      }
 
       const update = await connection('restaurants')
         .where({ id })
-        .update({ name, schedule, attempts });
+        .update({ name: upName, schedule, attempts: upAttempts });
 
       if (!update) {
         return response.status(401).json({ message: 'The update has not been performed' });
@@ -103,7 +120,7 @@ module.exports = {
         .select('*')
         .first();
 
-      response.header('X-Total-attempts', attempts);
+      response.header('X-Total-attempts', upAttempts);
 
       return response.json({ restaurant: updatedRestaurantData });
     } catch (err) {

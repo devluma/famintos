@@ -79,6 +79,7 @@ routes.get(
   '/restaurants',
   celebrate({
     [Segments.QUERY]: Joi.object().keys({
+      name: Joi.string(),
       page: Joi.number(),
       limit: Joi.number(),
     }),
@@ -110,7 +111,8 @@ routes.put(
       id: Joi.number().required(),
     }),
     [Segments.BODY]: Joi.object().keys({
-      name: Joi.string().required(),
+      name: Joi.string(),
+      attempts: Joi.number(),
     }),
   }),
   RestaurantsController.update
