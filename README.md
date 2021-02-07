@@ -16,9 +16,9 @@ Vamos fazer um pequeno sistema que auxilie essa tomada de decisão!
 - Crie um readme que inclua:
   - *Requisitos de ambiente necessários para compilar e rodar o software* ✔️
   - *Instruções de como utilizar o sistema* ❌
-  - [O que vale destacar no código implementado?](##Considerações) 📌
-  - [O que poderia ser feito para melhorar o sistema?](##Considerações) 📌
-  - [Algo a mais que você tenha a dizer](##Considerações) 📌
+  - [O que vale destacar no código implementado?](#Considerações) 📌
+  - [O que poderia ser feito para melhorar o sistema?](#Considerações) 📌
+  - [Algo a mais que você tenha a dizer](#Considerações) 📌
 
 ## 🔖 Estórias
 
