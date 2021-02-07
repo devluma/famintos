@@ -65,6 +65,7 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
 - Typescript ✔️
 - JWT Auth ✔️
 - Jest/Supertest ✔️
+- KnexJS Query Builder ✔️
 - Sqlite ✔️
 - Postgres ✔️
 
