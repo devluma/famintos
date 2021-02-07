@@ -1,8 +1,9 @@
-interface Restaurants {
+interface User {
   id?: string;
   name: string;
+  email: string;
   attempts: number;
   datetime: string;
 }
 
-export default Restaurants;
+export default User;
