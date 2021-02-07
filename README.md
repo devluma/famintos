@@ -76,13 +76,15 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
   - A separação da api de consulta do app;
   - A implementação do mecanismo de autenticação utilizando JWT;
   - A possibilidade de implementação de DevOps com o docker;
-  - A implementação das camada de consulta com o database utilizando um query builder.
+  - A implementação das camada de consulta com o database utilizando um query builder;
+  - A implementação de testes tanto na API como na interface do APP.
 - **O que poderia ser feito para melhorar o sistema?**
   - Melhorar os Styled-components separando os em componentes;
   - Melhorar a responsividade da aplicação utilizando @media no CSS;
   - Melhorar o DevOps do docker utilizando um manager como o Docker Compose ou Kubernetes separando por serviços;
   - Refatorar as Controllers da API e separar as consultas em Models/Entities;
-  - Criar script de build e deploy na API.
+  - Criar script de build e deploy na API;
+  - Adicionar mais casos de testes na Aplicação.
 - **Algo a mais que você tenha a dizer!**
   - Implementei algumas funcionalidades a mais no teste, como a separação das camadas da API e APP, possibilidade de utilizar um database, e também implementei o APP utilizando Typescript para demonstrar habilidades utilizando tanto javascript e typescript no desenvolvimento de Aplicações Web.
   
