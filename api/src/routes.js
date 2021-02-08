@@ -95,6 +95,25 @@ routes.get(
   }),
   RestaurantsController.show
 );
+routes.get(
+  '/restaurants/list/by/points',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      page: Joi.number(),
+      limit: Joi.number(),
+    }),
+  }),
+  RestaurantsController.listByPoints
+);
+// routes.get(
+//   '/restaurants/:dayOfWeek/list-of-the-week',
+//   celebrate({
+//     [Segments.PARAMS]: Joi.object().keys({
+//       dayOfWeek: Joi.string().required(),
+//     }),
+//   }),
+//   RestaurantsController.listOfTheWeek
+// );
 routes.post(
   '/restaurants',
   celebrate({

@@ -93,7 +93,7 @@ module.exports = {
         return response.status(401).json({ message: 'Restaurant isn`t finded' });
       }
 
-      const schedule = generateSchedule({ id: 1, name: 'Luiz' });
+      const schedule = generateSchedule();
 
       let upAttempts = attempts;
 
@@ -124,7 +124,7 @@ module.exports = {
 
       return response.json({ restaurant: updatedRestaurantData });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -146,6 +146,50 @@ module.exports = {
       await connection('restaurants').where('id', id).delete();
 
       return response.status(204).send();
+    } catch (err) {
+      return response.status(400).json(err);
+    }
+  },
+  /**
+   * Lista apenas os restaurantes com pontuação
+   *
+   * @param {page, limit} request
+   * @param {restaurants[]} response
+   */
+  async listByPoints(request, response) {
+    try {
+      const { page = 1, limit = 100 } = request.query;
+
+      const categories = [];
+      const points = [];
+      const winners = [];
+
+      const restaurants = await connection('restaurants')
+        .select(['restaurants.*'])
+        .where('attempts', '>=', 1)
+        .groupBy('restaurants.id')
+        .limit(limit)
+        .offset((page - 1) * limit);
+
+      restaurants.map((restaurant) => {
+        categories.push(restaurant.name);
+        points.push(restaurant.attempts);
+        winners.push({ name: restaurant.name, attempts: restaurant.attempts });
+
+        return { categories, points };
+      });
+
+      const highestScore = Math.max.apply(null, points);
+
+      const winner = winners.find((restaurant) => {
+        if (restaurant.attempts === highestScore) {
+          return restaurant.name;
+        }
+
+        return '';
+      });
+
+      return response.json({ categories, points, highestScore, winner });
     } catch (err) {
       return response.status(400).json(err);
     }
