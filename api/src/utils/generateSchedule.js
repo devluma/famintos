@@ -1,19 +1,26 @@
-module.exports = function generateSchedule(user = null) {
-  const date = new Date();
-  const schedule = {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    day: date.getDate(),
-    time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
-    user: {},
-  };
+module.exports = function generateSchedule() {
+  try {
+    const date = new Date();
 
-  if (user) {
-    schedule.user = {
-      id: user.id,
-      name: user.name,
+    const workDays = [1, 2, 3, 4, 5];
+    const daysOfWeek = [7, 1, 2, 3, 4, 5, 6];
+    const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    const schedule = {
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDate(),
+      dayWeek: daysOfWeek[date.getDay()],
+      weekDay: week[date.getDay()],
+      workDay: workDays[date.getDay()],
+      workDays,
+      daysOfWeek,
+      week,
+      time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
     };
-  }
 
-  return JSON.stringify(schedule);
+    return JSON.stringify(schedule);
+  } catch (error) {
+    return false;
+  }
 };
