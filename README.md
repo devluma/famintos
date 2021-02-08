@@ -47,7 +47,7 @@ Quero **saber antes do meio dia qual foi o restaurante escolhido;** <br />
 Para que **eu possa me despir de preconceitos e preparar o psicológico.**
 
 - **Critério de Aceitação**
-- ❌ Mostrar de alguma forma o resultado da votação.
+- ✔️ Mostrar de alguma forma o resultado da votação.
 
 ## 💻 Tecnologias utilizadas no Projeto
 
