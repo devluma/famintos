@@ -1,4 +1,4 @@
-module.exports = function generateSchedule() {
+module.exports = function generateSchedule(typeReturn = 'STRING') {
   try {
     const date = new Date();
 
@@ -17,10 +17,13 @@ module.exports = function generateSchedule() {
       daysOfWeek,
       week,
       time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
+      lastDays: date.setDate(date.getDate() - daysOfWeek.length),
     };
 
-    return JSON.stringify(schedule);
-  } catch (error) {
-    return false;
+    const dataReturn = JSON.stringify(schedule);
+
+    return typeReturn === 'JSON' ? schedule : dataReturn;
+  } catch (err) {
+    return err.message;
   }
 };
