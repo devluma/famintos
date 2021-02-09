@@ -28,7 +28,6 @@ routes.patch(
   }),
   SessionsController.logout
 );
-
 // Rotas para Usuários
 routes.get(
   '/users',
@@ -123,15 +122,6 @@ routes.get(
   }),
   RestaurantsController.listByUsers
 );
-// routes.get(
-//   '/restaurants/:dayOfWeek/list-of-the-week',
-//   celebrate({
-//     [Segments.PARAMS]: Joi.object().keys({
-//       dayOfWeek: Joi.string().required(),
-//     }),
-//   }),
-//   RestaurantsController.listOfTheWeek
-// );
 routes.post(
   '/restaurants',
   celebrate({
