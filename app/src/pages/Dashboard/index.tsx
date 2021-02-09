@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from "react-apexcharts";
 
 import { FiArrowLeft } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -14,8 +14,6 @@ import {
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-
-// import IRestaurant from '../../interfaces/Restaurant';
 
 import api from '../../services/api';
 
@@ -29,8 +27,7 @@ const Dashboard: React.FC = () => {
   const [points, setPoints] = useState([]);
   const [highestScore, setHighestScore] = useState([]);
   const [winner, setWinner] = useState<IWinner>({});
-
-  const history = useHistory();
+  const [winnerLabel, setWinnerLabel] = useState('Vencedor');
 
   const apexCharts = {
     optionsBar: {
@@ -110,7 +107,7 @@ const Dashboard: React.FC = () => {
       stroke: {
         lineCap: "round",
       },
-      labels: ["Vencedor"],
+      labels: [winnerLabel],
     },
     seriesRadial: [highestScore],
   };
@@ -120,10 +117,17 @@ const Dashboard: React.FC = () => {
       api
         .get('/restaurants/list/by/points')
         .then((response) => {
-          setCategories(response.data.categories);
-          setHighestScore(response.data.highestScore);
-          setPoints(response.data.points);
-          setWinner(response.data.winner);
+          const { data } = response;
+
+          if (data.winner && data.winner.name === 'HAVE_A_TIE') {
+            data.winner.name = 'Tivemos um empate';
+          }
+
+          setCategories(data.categories);
+          setHighestScore(data.highestScore);
+          setPoints(data.points);
+          setWinner(data.winner);
+          setWinnerLabel(data.winner.name);
         });
     },
     [],
