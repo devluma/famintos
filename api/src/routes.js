@@ -8,7 +8,6 @@ const RestaurantsController = require('./controllers/RestaurantsController');
 const routes = express.Router();
 
 // Rotas de Sessão
-routes.get('/sessions/logout', SessionsController.logout);
 routes.get('/sessions/verify', SessionsController.verify);
 routes.post(
   '/sessions',
@@ -19,6 +18,15 @@ routes.post(
     }),
   }),
   SessionsController.authenticate
+);
+routes.patch(
+  '/sessions/:id/logout',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  SessionsController.logout
 );
 
 // Rotas para Usuários
@@ -104,6 +112,16 @@ routes.get(
     }),
   }),
   RestaurantsController.listByPoints
+);
+routes.get(
+  '/restaurants/list/by/users',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      page: Joi.number(),
+      limit: Joi.number(),
+    }),
+  }),
+  RestaurantsController.listByUsers
 );
 // routes.get(
 //   '/restaurants/:dayOfWeek/list-of-the-week',
