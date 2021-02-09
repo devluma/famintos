@@ -1,8 +1,9 @@
 interface Restaurant {
   id?: string;
   name: string;
-  attempts: number;
-  datetime: string;
+  description?: string;
+  created_at?: number;
+  updated_at?: string;
 }
 
 export default Restaurant;
