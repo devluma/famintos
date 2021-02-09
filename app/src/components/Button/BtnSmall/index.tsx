@@ -4,10 +4,11 @@ import { Container } from './styles';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
+  hidden?: boolean;
 };
 
-const BtnSmall: React.FC<ButtonProps> = ({ children, loading, ...rest }) => (
-  <Container type="button" {...rest}>
+const BtnSmall: React.FC<ButtonProps> = ({ children, loading, hidden = false, ...rest }) => (
+  <Container type="button" hidden={hidden} {...rest}>
     {loading ? 'Carregando...' : children}
   </Container>
 );

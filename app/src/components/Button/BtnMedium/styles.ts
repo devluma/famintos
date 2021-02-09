@@ -1,5 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
+
+import Tooltip from '../../Tooltip';
 
 export const Container = styled.button`
   margin-left: 10px;
@@ -9,10 +11,14 @@ export const Container = styled.button`
   color: #666360;
   transition: background-color 0.2s;
 
-  /* flex para alinhar conteúdo*/
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) => props.hidden
+    && css`
+      display: none;
+    `}
 
   &:hover {
     background: ${shade(0.2, '#80aaff')};
@@ -23,5 +29,22 @@ export const Container = styled.button`
     width: 40px;
     height: 40px;
     margin-right: 3px;
+  }
+`;
+
+export const InfoTooltip = styled(Tooltip)`
+  svg {
+    width: 40px;
+    height: 40px;
+    margin-right: 3px;
+  }
+
+  span {
+    background: #7f7ffc;
+    color: #fff;
+
+    &::before {
+      border-color: #7f7ffc transparent;
+    }
   }
 `;

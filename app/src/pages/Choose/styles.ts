@@ -47,7 +47,7 @@ export const Content = styled.main`
 `;
 
 export const Section = styled.section`
-  height: 398px;
+  height: 485px;
   padding: 2em;
   display: flex;
   flex-flow: column;
@@ -64,13 +64,6 @@ export const Section = styled.section`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
-
-    /* button {
-      border-radius: 8px;
-      border: 2px solid #ccc;
-      margin-left: 10px;
-      padding: 4px;
-    } */
   }
 `;
 
@@ -102,4 +95,15 @@ export const ItemContent = styled.li`
   margin-bottom: 4px;
   border: 2px solid #ccc;
   border-radius: 8px;
+`;
+
+export const ItemNotFound = styled.li`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 4px;
 `;

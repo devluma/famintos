@@ -8,7 +8,6 @@ const RestaurantsController = require('./controllers/RestaurantsController');
 const routes = express.Router();
 
 // Rotas de Sessão
-routes.get('/sessions/logout', SessionsController.logout);
 routes.get('/sessions/verify', SessionsController.verify);
 routes.post(
   '/sessions',
@@ -20,7 +19,15 @@ routes.post(
   }),
   SessionsController.authenticate
 );
-
+routes.patch(
+  '/sessions/:id/logout',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  SessionsController.logout
+);
 // Rotas para Usuários
 routes.get(
   '/users',
@@ -79,6 +86,7 @@ routes.get(
   '/restaurants',
   celebrate({
     [Segments.QUERY]: Joi.object().keys({
+      name: Joi.string(),
       page: Joi.number(),
       limit: Joi.number(),
     }),
@@ -93,6 +101,26 @@ routes.get(
     }),
   }),
   RestaurantsController.show
+);
+routes.get(
+  '/restaurants/list/by/points',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      page: Joi.number(),
+      limit: Joi.number(),
+    }),
+  }),
+  RestaurantsController.listByPoints
+);
+routes.get(
+  '/restaurants/list/by/users',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      page: Joi.number(),
+      limit: Joi.number(),
+    }),
+  }),
+  RestaurantsController.listByUsers
 );
 routes.post(
   '/restaurants',
@@ -110,7 +138,8 @@ routes.put(
       id: Joi.number().required(),
     }),
     [Segments.BODY]: Joi.object().keys({
-      name: Joi.string().required(),
+      name: Joi.string(),
+      attempts: Joi.number(),
     }),
   }),
   RestaurantsController.update

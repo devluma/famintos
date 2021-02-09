@@ -3,7 +3,7 @@ exports.up = async (knex) => {
     table.increments('id').unique().notNullable().primary();
     table.string('user_id').notNullable().unsigned();
     table.foreign('user_id').references('id').inTable('users');
-    table.string('name', 100).notNullable();
+    table.string('name', 44).notNullable();
     table.string('type').notNullable();
     table.string('token').notNullable();
     table.timestamp('expires_at').defaultTo(knex.fn.now());

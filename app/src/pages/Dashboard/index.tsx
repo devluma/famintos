@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from "react-apexcharts";
 
 import { FiArrowLeft } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -15,11 +15,19 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-import IRestaurant from '../../interfaces/Restaurant';
+import api from '../../services/api';
+
+interface IWinner {
+  name?: string;
+  attempts?: string;
+}
 
 const Dashboard: React.FC = () => {
-  const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
-  const history = useHistory();
+  const [categories, setCategories] = useState([]);
+  const [points, setPoints] = useState([]);
+  const [highestScore, setHighestScore] = useState([]);
+  const [winner, setWinner] = useState<IWinner>({});
+  const [winnerLabel, setWinnerLabel] = useState('Vencedor');
 
   const apexCharts = {
     optionsBar: {
@@ -30,20 +38,13 @@ const Dashboard: React.FC = () => {
         },
       },
       xaxis: {
-        categories: [
-          "Restaurante 1",
-          "Restaurante 2",
-          "Restaurante 3",
-          "Restaurante 4",
-          "Restaurante 5",
-          "Restaurante 6",
-        ],
+        categories,
       },
     },
     seriesBar: [
       {
         name: "Pontuação",
-        data: [10, 20, 40, 60, 110, 112],
+        data: points,
       },
     ],
     optionsRadial: {
@@ -106,20 +107,39 @@ const Dashboard: React.FC = () => {
       stroke: {
         lineCap: "round",
       },
-      labels: ["Vencedor"],
+      labels: [winnerLabel],
     },
-    seriesRadial: [76],
+    seriesRadial: [highestScore],
   };
 
-  useEffect(() => {
+  useEffect(
+    () => {
+      api
+        .get('/restaurants/list/by/points')
+        .then((response) => {
+          const { data } = response;
 
-  }, []);
+          if (data.winner && data.winner.name === 'HAVE_A_TIE') {
+            data.winner.name = 'Tivemos um empate';
+          }
+
+          setCategories(data.categories);
+          setHighestScore(data.highestScore);
+          setPoints(data.points);
+          setWinner(data.winner);
+          setWinnerLabel(data.winner.name);
+        });
+    },
+    [],
+  );
 
   return (
     <Container>
       <Header
         title="Dashboard do Vencedor"
-        description="O restaurante vencedor de hoje foi o <b>Restaurante do Tio João</b>"
+        description={`
+          O restaurante vencedor de hoje foi o <b>${winner.name} / (${winner.attempts}) pontos</b>
+        `}
       />
 
       <Content>

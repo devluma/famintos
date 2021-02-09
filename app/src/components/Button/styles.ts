@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.button`
@@ -15,10 +15,14 @@ export const Container = styled.button`
   margin-top: 16px;
   transition: background-color 0.2s;
 
-  /* flex para alinhar conteúdo*/
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) => props.hidden
+    && css`
+      display: none;
+    `}
 
   &:hover {
     background: ${shade(0.2, '#80aaff')};
