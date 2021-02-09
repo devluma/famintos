@@ -12,7 +12,7 @@ module.exports = {
     try {
       const { page = 1, limit = 10 } = request.query;
 
-      const [count] = await connection('users').count();
+      // const [count] = await connection('users').count();
 
       const users = await connection('users')
         .select(['users.*'])
@@ -20,11 +20,11 @@ module.exports = {
         .limit(limit)
         .offset((page - 1) * limit);
 
-      response.header('X-Total-count', count['count(*)']);
+      // response.header('X-Total-count', count['count(*)']);
 
       return response.json(users);
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -40,7 +40,7 @@ module.exports = {
 
       return response.json(user);
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -70,7 +70,7 @@ module.exports = {
 
       return response.json({ id });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -102,7 +102,7 @@ module.exports = {
 
       return response.json({ user: updatedRestaurantData });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -125,7 +125,7 @@ module.exports = {
 
       return response.status(204).send();
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
 };

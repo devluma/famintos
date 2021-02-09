@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto-js');
 const generateHash = require('../utils/generateHash');
 const connection = require('../database/connection');
 
@@ -26,6 +25,7 @@ module.exports = {
       }
 
       const secretText = `${secret}_${user.name}`.replace(/ /gi, '_').toLocaleUpperCase();
+      const secretHash = generateHash(secretText);
 
       const token = jwt.sign({ id: user.id }, secret, {
         expiresIn: '24h',
@@ -39,7 +39,7 @@ module.exports = {
       if (!existApiToken) {
         const create = await connection('api_tokens').insert({
           user_id: user.id,
-          name: crypto.MD5(secretText).toString(),
+          name: secretHash,
           type: 'JWT',
           token,
         });
@@ -48,12 +48,10 @@ module.exports = {
           return response.status(401).json({ message: 'The create has not been performed' });
         }
       } else {
-        const update = await connection('api_tokens')
-          .where('user_id', user.id)
-          .update({
-            name: crypto.MD5(secretText).toString(),
-            token,
-          });
+        const update = await connection('api_tokens').where('user_id', user.id).update({
+          name: secretHash,
+          token,
+        });
 
         if (!update) {
           return response.status(401).json({ message: 'The update has not been performed' });
@@ -62,7 +60,7 @@ module.exports = {
 
       return response.json({ user, token });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -89,7 +87,7 @@ module.exports = {
 
       return response.json({ user: false, token: null });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
   /**
@@ -123,7 +121,7 @@ module.exports = {
 
       return response.status(200).json({ token });
     } catch (err) {
-      return response.status(400).json(err);
+      return response.status(400).json(err.message);
     }
   },
 };
