@@ -5,12 +5,22 @@ exports.up = async (knex) => {
     table.foreign('user_id').references('id').inTable('users');
     table.string('restaurant_id').notNullable().unsigned();
     table.foreign('restaurant_id').references('id').inTable('restaurants');
-    table.integer('attempts').notNullable().defaultTo(0);
-    table.integer('dayWeek').defaultTo();
-    table.string('weekDayName').defaultTo();
-    table.integer('workDay').defaultTo();
-    table.timestamp('created_at').defaultTo(knex.fn.now());
-    table.timestamp('updated_at').defaultTo(knex.fn.now());
+    table.integer('attempts').notNullable().defaultTo(1);
+    table.enu('day_week', [7, 1, 2, 3, 4, 5, 6]).notNullable();
+    table
+      .enu('week_day_name', [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ])
+      .notNullable();
+    table.datetime('current_date').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   });
 };
 
