@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import SignIn from '../../pages/Home';
+import SignIn from '../../pages/SignIn';
 
 const mockedHistoryPush = jest.fn();
 
@@ -11,7 +11,7 @@ jest.mock('react-router-dom', () => ({
   Link: ({ children }: { children: React.ReactNode }) => children,
 }));
 
-describe('Home Page', () => {
+describe('SignIn Page', () => {
   beforeEach(() => {
     mockedHistoryPush.mockClear();
   });
