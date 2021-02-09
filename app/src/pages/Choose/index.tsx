@@ -152,10 +152,10 @@ const Choose: React.FC = () => {
       try {
         setLoading(true);
 
-        await api
-          .put<IRestaurant>(`/restaurants/${restaurant.id}`, {
-            attempts: restaurant.attempts + 1,
-          });
+        // await api
+        //   .put<IRestaurant>(`/restaurants/${restaurant.id}`, {
+        //     attempts: restaurant.attempts + 1,
+        //   });
 
         addToast({
           type: 'success',
@@ -305,7 +305,7 @@ const Choose: React.FC = () => {
               </ItemNotFound>
             )}
 
-            {restaurants.map((restaurant) => (
+            {/* {restaurants.map((restaurant) => (
               (restaurant.attempts > 0)
                 ? (
                   <ItemContent key={restaurant.id}>
@@ -326,7 +326,7 @@ const Choose: React.FC = () => {
                 : (
                   <ItemContent key={restaurant.id}>
                     <div>{restaurant.name}</div>
-                    <div><b>Este Restaurante</b> ainda não recebeu like</div>
+                    <div>{restaurant.description}</div>
                     <div>
                       <BtnSmall
                         onClick={() => handleLiked(restaurant)}
@@ -337,7 +337,7 @@ const Choose: React.FC = () => {
                     </div>
                   </ItemContent>
                 )
-            ))}
+            ))} */}
           </ListContainer>
         </Section>
 
