@@ -15,7 +15,7 @@ Vamos fazer um pequeno sistema que auxilie essa tomada de decisão!
 - Nos mande o link para o zip do código, pode ser via DropBox ou algo do gênero. ❌
 - Crie um readme que inclua:
   - *Requisitos de ambiente necessários para compilar e rodar o software* ✔️
-  - *Instruções de como utilizar o sistema* ❌
+  - *Instruções de como utilizar o sistema* ✔️
   - [O que vale destacar no código implementado?](#Considerações) 📌
   - [O que poderia ser feito para melhorar o sistema?](#Considerações) 📌
   - [Algo a mais que você tenha a dizer](#Considerações) 📌
@@ -29,7 +29,7 @@ Quero **votar no meu restaurante favorito;** <br />
 Para que **eu consiga democraticamente levar meus colegas a comer onde eu gosto.**
 
 - **Critério de Aceitação**
-- ❌ Um profissional só pode votar em um restaurante por dia. 
+- ✔️ Um profissional só pode votar em um restaurante por dia. 
 
 ### Estória 2:
 
