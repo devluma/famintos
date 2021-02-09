@@ -10,9 +10,9 @@ Vamos fazer um pequeno sistema que auxilie essa tomada de decisão!
 
 **Instruções:**
 
-- Não precisa implementar o banco de dados, você pode retornar dados fakes. 
-- Todas as estórias devem ser implementadas com um nível aceitável de testes automatizados. 
-- Nos mande o link para o zip do código, pode ser via DropBox ou algo do gênero. 
+- Não precisa implementar o banco de dados, você pode retornar dados fakes. ✔️
+- Todas as estórias devem ser implementadas com um nível aceitável de testes automatizados. ❌
+- Nos mande o link para o zip do código, pode ser via DropBox ou algo do gênero. ❌
 - Crie um readme que inclua:
   - *Requisitos de ambiente necessários para compilar e rodar o software* ✔️
   - *Instruções de como utilizar o sistema* ❌
