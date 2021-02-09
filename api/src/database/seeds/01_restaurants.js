@@ -10,6 +10,8 @@ exports.seed = async (knex) => {
         { id: 3, name: 'Xis Cavanhas' },
         { id: 4, name: 'Ifood Prato Feito' },
         { id: 5, name: 'Pizza' },
+        { id: 6, name: 'Massas e Pasteis' },
+        { id: 7, name: 'Mark Hamburgueria' },
       ]);
     });
 };
