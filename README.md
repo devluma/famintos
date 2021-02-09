@@ -69,6 +69,8 @@ Segue abaixo as principais tecnologias utilizadas neste projeto:
 - Sqlite ✔️
 - Postgres ✔️
 
+O projeto está dividido em duas aplicações ([Aplicação Web](http://localhost:3333/) e a [API](http://localhost:5000/api/)) que rodam separadas, porém devem ser execudas simultaneamente durante os testes de funcionamento. <br />
+
 ## Considerações
 
 - **O que vale destacar no código implementado?**
