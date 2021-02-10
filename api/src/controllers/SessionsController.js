@@ -116,7 +116,9 @@ module.exports = {
         .first();
 
       if (user.id !== apiTokens.user_id) {
-        return response.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+        return response
+          .status(500)
+          .json({ auth: false, message: 'Failed to authenticate token 2.' });
       }
 
       return response.status(200).json({ token });
