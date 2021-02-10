@@ -152,10 +152,9 @@ const Choose: React.FC = () => {
       try {
         setLoading(true);
 
-        // await api
-        //   .put<IRestaurant>(`/restaurants/${restaurant.id}`, {
-        //     attempts: restaurant.attempts + 1,
-        //   });
+        await api.post<IRestaurant>('/restaurants/liked', {
+          restaurant_id: restaurant.id,
+        });
 
         addToast({
           type: 'success',
@@ -181,6 +180,7 @@ const Choose: React.FC = () => {
           title: 'Erro na escolha',
           description: message,
         });
+        setCanEnjoy(true);
       } finally {
         setLoading(false);
       }
@@ -236,7 +236,7 @@ const Choose: React.FC = () => {
   useEffect(
     () => {
       api
-        .get<IRestaurant[]>('/restaurants')
+        .get<IRestaurant[]>('/restaurants/list/by/users')
         .then((response) => {
           setRestaurants(response.data);
         });
@@ -305,45 +305,22 @@ const Choose: React.FC = () => {
               </ItemNotFound>
             )}
 
-            {/* {restaurants.map((restaurant) => (
-              (restaurant.attempts > 0)
-                ? (
-                  <ItemContent key={restaurant.id}>
-                    <div>{restaurant.name}</div>
-                    <div>
-                      <b>Este Restaurante</b> já foi escolhido <b>{restaurant.attempts}</b> vezes
-                    </div>
-                    <div>
-                      <BtnSmall
-                        onClick={() => handleLiked(restaurant)}
-                        hidden={!canEnjoy}
-                      >
-                        <FiThumbsUp size={20} color="##666360" />
-                      </BtnSmall>
-                    </div>
-                  </ItemContent>
-                )
-                : (
-                  <ItemContent key={restaurant.id}>
-                    <div>{restaurant.name}</div>
-                    <div>{restaurant.description}</div>
-                    <div>
-                      <BtnSmall
-                        onClick={() => handleLiked(restaurant)}
-                        hidden={!canEnjoy}
-                      >
-                        <FiThumbsUp size={20} color="##666360" />
-                      </BtnSmall>
-                    </div>
-                  </ItemContent>
-                )
-            ))} */}
+            {restaurants.map((restaurant) => (
+              <ItemContent key={restaurant.id}>
+                <div>{restaurant.name}</div>
+                <div>{restaurant.description}</div>
+                <div>
+                  <BtnSmall
+                    onClick={() => handleLiked(restaurant)}
+                    hidden={!!(!canEnjoy || (restaurant.last_day_of_likes !== null))}
+                  >
+                    <FiThumbsUp size={20} color="##666360" />
+                  </BtnSmall>
+                </div>
+              </ItemContent>
+            ))}
           </ListContainer>
         </Section>
-
-        {/* <Link to="/" onClick={handleSignOut}>
-          <FiX /> Fechar e sair
-        </Link> */}
       </Content>
 
       <Footer text="©2021 - DBServer - Todos os direitos reservados." />

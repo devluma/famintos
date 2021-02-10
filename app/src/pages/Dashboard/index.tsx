@@ -19,7 +19,7 @@ import api from '../../services/api';
 
 interface IWinner {
   name?: string;
-  attempts?: string;
+  attempts?: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -119,15 +119,21 @@ const Dashboard: React.FC = () => {
         .then((response) => {
           const { data } = response;
 
-          if (data.winner && data.winner.name === 'HAVE_A_TIE') {
-            data.winner.name = 'Tivemos um empate';
+          let dataWinner: IWinner = { name: 'Nenhum restaurante foi votado', attempts: 0 };
+
+          if (data.winner && data.winner.name) {
+            if (data.winner.name === 'HAVE_A_TIE') {
+              data.winner.name = 'Tivemos um empate';
+            }
+
+            dataWinner = data.winner;
+            setWinnerLabel(data.winner.name);
           }
 
           setCategories(data.categories);
-          setHighestScore(data.highestScore);
+          setHighestScore((data.highestScore) ? data.highestScore : 0);
           setPoints(data.points);
-          setWinner(data.winner);
-          setWinnerLabel(data.winner.name);
+          setWinner(dataWinner);
         });
     },
     [],
