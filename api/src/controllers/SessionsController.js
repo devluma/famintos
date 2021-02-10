@@ -71,19 +71,25 @@ module.exports = {
    */
   async logout(request, response) {
     try {
-      const { id } = request.params;
       const token = request.headers.authorization.replace('Bearer ', '');
       const secret = process.env.API_SECRET;
 
       const user = jwt.verify(token, secret);
 
-      const apiTokens = await connection('api_tokens').where('user_id', id).select('*').first();
-
-      if (user.id !== apiTokens.user_id) {
+      if (!user || !token) {
         return response.status(401).json({ message: 'Operation not permitted' });
       }
 
-      await connection('api_tokens').where('user_id', user.id).delete();
+      const apiTokens = await connection('api_tokens')
+        .select('id')
+        .where('user_id', user.id)
+        .first();
+
+      if (!apiTokens) {
+        return response.status(401).json({ message: 'Operation not permitted' });
+      }
+
+      await connection('api_tokens').where('id', apiTokens.id).delete();
 
       return response.json({ user: false, token: null });
     } catch (err) {
@@ -107,7 +113,7 @@ module.exports = {
       const user = jwt.verify(token, secret);
 
       if (!user && !user.id) {
-        return response.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+        return response.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
       }
 
       const apiTokens = await connection('api_tokens')
@@ -115,10 +121,8 @@ module.exports = {
         .select('*')
         .first();
 
-      if (user.id !== apiTokens.user_id) {
-        return response
-          .status(500)
-          .json({ auth: false, message: 'Failed to authenticate token 2.' });
+      if (!apiTokens) {
+        return response.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
       }
 
       return response.status(200).json({ token });
