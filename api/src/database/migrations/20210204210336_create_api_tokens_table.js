@@ -1,7 +1,7 @@
 exports.up = async (knex) => {
   await knex.schema.createTable('api_tokens', (table) => {
     table.increments('id').unique().notNullable().primary();
-    table.string('user_id').notNullable().unsigned();
+    table.integer('user_id').notNullable().unsigned();
     table.foreign('user_id').references('id').inTable('users');
     table.string('name', 44).notNullable();
     table.string('type').notNullable();
