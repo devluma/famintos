@@ -81,7 +81,6 @@ module.exports = {
   async store(request, response) {
     try {
       const { name } = request.body;
-      const schedule = generateSchedule();
       const token = request.headers.authorization.replace('Bearer ', '');
       const secret = process.env.API_SECRET;
 
@@ -94,7 +93,6 @@ module.exports = {
       const [id] = await connection('restaurants')
         .insert({
           name,
-          schedule,
         })
         .returning('id');
 
@@ -112,7 +110,7 @@ module.exports = {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const { name, attempts } = request.body;
+      const { name, description } = request.body;
       const token = request.headers.authorization.replace('Bearer ', '');
       const secret = process.env.API_SECRET;
 
@@ -128,23 +126,21 @@ module.exports = {
         return response.status(401).json({ message: 'Operation not permitted' });
       }
 
-      const schedule = generateSchedule();
-
-      let upAttempts = attempts;
-
-      if (!attempts && attempts <= 0) {
-        upAttempts = restaurant.attempts + 1;
-      }
-
       let upName = name;
 
-      if (!name && name !== '') {
+      if (!upName && name !== '') {
         upName = restaurant.name;
+      }
+
+      let upDescription = description;
+
+      if (!upDescription && name !== '') {
+        upDescription = restaurant.description;
       }
 
       const update = await connection('restaurants')
         .where({ id })
-        .update({ name: upName, schedule, attempts: upAttempts });
+        .update({ name: upName, description: upDescription });
 
       if (!update) {
         return response.status(401).json({ message: 'The update has not been performed' });
@@ -155,13 +151,57 @@ module.exports = {
         .select('*')
         .first();
 
-      response.header('X-Total-attempts', upAttempts);
-
       return response.json({ restaurant: updatedRestaurantData });
     } catch (err) {
       return response.status(400).json(err.message);
     }
   },
+
+  async liked(request, response) {
+    try {
+      const { restaurant_id } = request.body;
+      const token = request.headers.authorization.replace('Bearer ', '');
+      const secret = process.env.API_SECRET;
+      const { weekDay, dayWeek, completeDate } = generateSchedule('JSON');
+
+      const user = jwt.verify(token, secret);
+
+      if (!user && !restaurant_id) {
+        return response.status(401).json({ message: 'Operation not permitted' });
+      }
+
+      const votingRecords = await connection('voting_records')
+        .where('user_id', user.id)
+        .andWhere('restaurant_id', restaurant_id)
+        .andWhere('day_week', dayWeek)
+        .andWhere('last_day_of_likes', '<=', completeDate)
+        .select(['user_id', 'restaurant_id', 'day_week'])
+        .first();
+
+      if (votingRecords) {
+        return response.status(401).json({ message: 'Have you enjoyed this restaurant today' });
+      }
+
+      const [votingRecordId] = await connection('voting_records')
+        .insert({
+          user_id: user.id,
+          restaurant_id,
+          day_week: dayWeek,
+          week_day_name: weekDay,
+        })
+        .returning('id');
+
+      return response.json({
+        restaurant_id,
+        user: user.id,
+        votingRecords,
+        votingRecordId,
+      });
+    } catch (err) {
+      return response.status(400).json(err.message);
+    }
+  },
+
   /**
    * Remove um restaurante pelo id
    *
@@ -200,6 +240,7 @@ module.exports = {
       const { page = 1, limit = 100 } = request.query;
       const token = request.headers.authorization.replace('Bearer ', '');
       const secret = process.env.API_SECRET;
+      // const { dayWeek, completeDate } = generateSchedule('JSON');
 
       const user = jwt.verify(token, secret);
 
@@ -207,21 +248,26 @@ module.exports = {
         return response.status(401).json({ message: 'Operation not permitted' });
       }
 
-      const schedule = generateSchedule('JSON');
-      const { dayWeek, lastDays } = schedule;
-
-      const restaurants = await connection('voting_records')
-        .select('restaurants.*')
-        .where('voting_records.user_id', '<>', user.id)
-        .andWhere('voting_records.day_week', '=', dayWeek)
-        .where('voting_records.created_at', '>=', lastDays)
-        .andWhere('voting_records.created_at', '<', new Date())
-        .join('restaurants', 'restaurants.id', 'voting_records.restaurant_id')
+      const restaurants = await connection('restaurants')
+        .select([
+          'restaurants.id',
+          'restaurants.name',
+          'restaurants.description',
+          'voting_records.user_id',
+          'voting_records.day_week',
+          'voting_records.last_day_of_likes',
+        ])
+        .leftJoin('voting_records', 'voting_records.restaurant_id', 'restaurants.id')
         .groupBy('restaurants.id')
         .limit(limit)
-        .offset((page - 1) * limit);
+        .offset((page - 1) * limit)
+        .orderBy('restaurants.id', 'desc');
 
-      return response.json({ restaurants });
+      restaurants.find((restaurant, index) => {
+        return console.log(restaurant, index);
+      });
+
+      return response.json(restaurants);
     } catch (err) {
       return response.status(400).json(err.message);
     }
@@ -245,17 +291,19 @@ module.exports = {
       const restaurants = await connection('voting_records')
         .select(['restaurants.*', 'voting_records.*'])
         .count('voting_records.attempts', { as: 'points' })
+        .join('restaurants', 'restaurants.id', 'voting_records.restaurant_id')
         .where('voting_records.attempts', '>=', 1)
         .andWhere('voting_records.day_week', '=', dayWeek)
-        .join('restaurants', 'restaurants.id', 'voting_records.restaurant_id')
         .groupBy(['voting_records.restaurant_id', 'voting_records.day_week'])
         .limit(limit)
         .offset((page - 1) * limit);
 
       restaurants.map((restaurant) => {
-        categories.push(restaurant.name);
-        points.push(restaurant.points);
-        winners.push({ name: restaurant.name, attempts: restaurant.points });
+        if (restaurant) {
+          categories.push(restaurant.name);
+          points.push(restaurant.points);
+          winners.push({ name: restaurant.name, attempts: restaurant.points });
+        }
 
         return { categories, points, winners };
       });
@@ -263,7 +311,7 @@ module.exports = {
       const highestScore = Math.max.apply(null, points);
 
       const winner = winners.find((restaurant) => {
-        if (restaurant.attempts === highestScore) {
+        if (restaurant && restaurant.attempts === highestScore) {
           return restaurant.name;
         }
 
@@ -272,7 +320,9 @@ module.exports = {
 
       const tieLevel = points.filter((point) => point === winner.attempts).length;
 
-      winner.name = tieLevel !== 1 ? 'HAVE_A_TIE' : winner.name;
+      if (winner && winner.name) {
+        winner.name = tieLevel !== 1 ? 'HAVE_A_TIE' : winner.name;
+      }
 
       return response.json({ categories, points, highestScore, tieLevel, winner });
     } catch (err) {

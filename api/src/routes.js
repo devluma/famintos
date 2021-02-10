@@ -9,6 +9,7 @@ const routes = express.Router();
 
 // Rotas de Sessão
 routes.get('/sessions/verify', SessionsController.verify);
+routes.patch('/sessions/logout', SessionsController.logout);
 routes.post(
   '/sessions',
   celebrate({
@@ -18,15 +19,6 @@ routes.post(
     }),
   }),
   SessionsController.authenticate
-);
-routes.patch(
-  '/sessions/:id/logout',
-  celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      id: Joi.number().required(),
-    }),
-  }),
-  SessionsController.logout
 );
 // Rotas para Usuários
 routes.get(
@@ -139,10 +131,19 @@ routes.put(
     }),
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string(),
-      attempts: Joi.number(),
+      description: Joi.string().required(),
     }),
   }),
   RestaurantsController.update
+);
+routes.post(
+  '/restaurants/liked',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      restaurant_id: Joi.number().required(),
+    }),
+  }),
+  RestaurantsController.liked
 );
 routes.delete(
   '/restaurants/:id',

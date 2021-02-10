@@ -27,11 +27,21 @@ module.exports = function generateSchedule(typeReturn = 'STRING') {
       'December',
     ];
 
+    const dtFormat = `${[
+      date.getFullYear(),
+      date.getDate().toString().padStart(2, '0'),
+      (date.getMonth() + 1).toString().padStart(2, '0'),
+    ].join('-')} ${[
+      date.getHours().toString().padStart(2, '0'),
+      date.getMinutes().toString().padStart(2, '0'),
+      date.getSeconds().toString().padStart(2, '0'),
+    ].join(':')}`;
+
     const schedule = {
       year: date.getFullYear(),
-      month: date.getMonth() + 1,
+      month: (date.getMonth() + 1).toString().padStart(2, '0'),
       monthsName: monthsName[date.getMonth()],
-      day: date.getDate(),
+      day: date.getDate().toString().padStart(2, '0'),
       dayWeek: daysOfWeek[date.getDay()],
       weekDay: weeksName[date.getDay()],
       workDay: workDays[date.getDay()],
@@ -40,6 +50,7 @@ module.exports = function generateSchedule(typeReturn = 'STRING') {
       weeksName,
       lastDays: date.setDate(date.getDate() - daysOfWeek.length),
       time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
+      completeDate: dtFormat,
     };
 
     const dataReturn = JSON.stringify(schedule);
