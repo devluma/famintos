@@ -40,11 +40,13 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signOut = useCallback(() => {
+  const signOut = useCallback(async () => {
     localStorage.removeItem('@Famintos:token');
     localStorage.removeItem('@Famintos:user');
 
     setData({} as AuthState);
+
+    await api.patch(`/sessions/logout`);
   }, [setData]);
 
   const signIn = useCallback(async ({ email, password }) => {
