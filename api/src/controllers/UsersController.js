@@ -12,15 +12,11 @@ module.exports = {
     try {
       const { page = 1, limit = 10 } = request.query;
 
-      // const [count] = await connection('users').count();
-
       const users = await connection('users')
         .select(['users.*'])
         .groupBy('users.id')
         .limit(limit)
         .offset((page - 1) * limit);
-
-      // response.header('X-Total-count', count['count(*)']);
 
       return response.json(users);
     } catch (err) {
@@ -90,9 +86,7 @@ module.exports = {
         return response.status(401).json({ message: 'Restaurant isn`t finded' });
       }
 
-      const attempts = user.attempts + 1;
-
-      const update = await connection('users').where({ id }).update({ name, attempts });
+      const update = await connection('users').where({ id }).update({ name });
 
       if (!update) {
         return response.status(401).json({ message: 'The update has not been performed' });
