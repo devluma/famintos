@@ -16,9 +16,7 @@ jest.mock('@unform/core', () => ({
 
 describe('Input component', () => {
   it('should be able to render an input', () => {
-    const { getByPlaceholderText } = render(
-      <Input name="email" placeholder="E-mail" />,
-    );
+    const { getByPlaceholderText } = render(<Input name="email" placeholder="E-mail" />);
 
     expect(getByPlaceholderText('E-mail')).toBeTruthy();
   });

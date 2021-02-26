@@ -49,21 +49,24 @@ const AuthProvider: React.FC = ({ children }) => {
     await api.patch(`/sessions/logout`);
   }, [setData]);
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', {
-      email,
-      password,
-    });
+  const signIn = useCallback(
+    async ({ email, password }) => {
+      const response = await api.post('sessions', {
+        email,
+        password,
+      });
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    localStorage.setItem('@Famintos:token', token);
-    localStorage.setItem('@Famintos:user', JSON.stringify(user));
+      localStorage.setItem('@Famintos:token', token);
+      localStorage.setItem('@Famintos:user', JSON.stringify(user));
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({ token, user });
-  }, [setData]);
+      setData({ token, user });
+    },
+    [setData],
+  );
 
   const updateUser = useCallback(
     (user: User) => {
@@ -78,9 +81,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider
-      value={{ user: data.user, signIn, signOut, updateUser }}
-    >
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

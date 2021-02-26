@@ -6,12 +6,7 @@ import * as Yup from 'yup';
 import { FiSave, FiMail, FiUser, FiCompass, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
-import {
-  Container,
-  Content,
-  Section,
-  ButtonGroup,
-} from './styles';
+import { Container, Content, Section, ButtonGroup } from './styles';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -46,9 +41,7 @@ const Register: React.FC = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome é obrigatório'),
-          email: Yup.string()
-            .required('E-mail é obrigatório')
-            .email('Digite um e-mail válido'),
+          email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
         });
 
@@ -102,26 +95,11 @@ const Register: React.FC = () => {
       <Content>
         <Section>
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <Input
-              type="text"
-              name="name"
-              icon={FiUser}
-              placeholder="Nome do Colaborador"
-            />
+            <Input type="text" name="name" icon={FiUser} placeholder="Nome do Colaborador" />
 
-            <Input
-              type="email"
-              name="email"
-              icon={FiMail}
-              placeholder="E-mail"
-            />
+            <Input type="email" name="email" icon={FiMail} placeholder="E-mail" />
 
-            <Input
-              type="password"
-              name="password"
-              icon={FiCompass}
-              placeholder="Senha"
-            />
+            <Input type="password" name="password" icon={FiCompass} placeholder="Senha" />
 
             <Button type="submit" loading={loading}>
               <FiSave /> Registrar

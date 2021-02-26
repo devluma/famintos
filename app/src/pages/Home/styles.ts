@@ -64,7 +64,7 @@ export const SectionFooter = styled.footer`
   align-items: center;
 
   a {
-    text-decoration:none;
+    text-decoration: none;
     padding: 80px;
     background: #99bbff;
     height: 56px;

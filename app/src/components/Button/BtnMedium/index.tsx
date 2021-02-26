@@ -16,9 +16,7 @@ const BtnMedium: React.FC<ButtonProps> = ({
   ...rest
 }) => (
   <Container type="button" hidden={hidden} {...rest}>
-    <InfoTooltip title={textTitleTootip}>
-      {loading ? 'Carregando...' : children}
-    </InfoTooltip>
+    <InfoTooltip title={textTitleTootip}>{loading ? 'Carregando...' : children}</InfoTooltip>
   </Container>
 );
 

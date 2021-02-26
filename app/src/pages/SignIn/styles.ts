@@ -59,6 +59,6 @@ export const Section = styled.section`
   }
 
   input {
-    background: 'transparent',
+    background: 'transparent';
   }
 `;

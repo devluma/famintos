@@ -9,14 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { FiX, FiThumbsUp, FiAward, FiSearch, FiPlus, FiBarChart, FiPower } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 
-import {
-  Container,
-  Content,
-  Section,
-  ListContainer,
-  ItemContent,
-  ItemNotFound,
-} from './styles';
+import { Container, Content, Section, ListContainer, ItemContent, ItemNotFound } from './styles';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -184,7 +177,8 @@ const Choose: React.FC = () => {
       } finally {
         setLoading(false);
       }
-    }, [setCanEnjoy, addToast],
+    },
+    [setCanEnjoy, addToast],
   );
 
   const handleSignOut = useCallback(
@@ -205,7 +199,8 @@ const Choose: React.FC = () => {
           },
         ],
       });
-    }, [signOut],
+    },
+    [signOut],
   );
 
   const handleGoToDashboard = useCallback(
@@ -230,19 +225,15 @@ const Choose: React.FC = () => {
           },
         ],
       });
-    }, [signOut, history],
+    },
+    [signOut, history],
   );
 
-  useEffect(
-    () => {
-      api
-        .get<IRestaurant[]>('/restaurants/list/by/users')
-        .then((response) => {
-          setRestaurants(response.data);
-        });
-    },
-    [],
-  );
+  useEffect(() => {
+    api.get<IRestaurant[]>('/restaurants/list/by/users').then((response) => {
+      setRestaurants(response.data);
+    });
+  }, []);
 
   return (
     <Container>
@@ -256,11 +247,7 @@ const Choose: React.FC = () => {
           <h3>Lista dos Restaurantes Disponíveis</h3>
 
           <Form ref={formRef} autoComplete="off" onSubmit={handleCreate}>
-            <Input
-              name="name"
-              icon={FiAward}
-              placeholder="Sugestão de Restaurante"
-            />
+            <Input name="name" icon={FiAward} placeholder="Sugestão de Restaurante" />
 
             <BtnMedium
               type="submit"
@@ -299,11 +286,7 @@ const Choose: React.FC = () => {
           </Form>
 
           <ListContainer>
-            {restaurants.length === 0 && (
-              <ItemNotFound>
-                Nenhum restaurante encontrado
-              </ItemNotFound>
-            )}
+            {restaurants.length === 0 && <ItemNotFound>Nenhum restaurante encontrado</ItemNotFound>}
 
             {restaurants.map((restaurant) => (
               <ItemContent key={restaurant.id}>
@@ -312,7 +295,7 @@ const Choose: React.FC = () => {
                 <div>
                   <BtnSmall
                     onClick={() => handleLiked(restaurant)}
-                    hidden={!!(!canEnjoy || (restaurant.last_day_of_likes !== null))}
+                    hidden={!!(!canEnjoy || restaurant.last_day_of_likes !== null)}
                   >
                     <FiThumbsUp size={20} color="##666360" />
                   </BtnSmall>

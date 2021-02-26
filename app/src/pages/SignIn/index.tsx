@@ -6,11 +6,7 @@ import * as Yup from 'yup';
 import { FiArrowLeft, FiUnlock, FiMail, FiCompass } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import {
-  Container,
-  Content,
-  Section,
-} from './styles';
+import { Container, Content, Section } from './styles';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -43,9 +39,7 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('E-mail é obrigatório')
-            .email('Digite um e-mail válido'),
+          email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
         });
 
@@ -100,20 +94,9 @@ const SignIn: React.FC = () => {
       <Content>
         <Section>
           <Form ref={formRef} onSubmit={handleSubmit}>
+            <Input type="email" name="email" icon={FiMail} placeholder="E-mail" />
 
-            <Input
-              type="email"
-              name="email"
-              icon={FiMail}
-              placeholder="E-mail"
-            />
-
-            <Input
-              type="password"
-              name="password"
-              icon={FiCompass}
-              placeholder="Senha"
-            />
+            <Input type="password" name="password" icon={FiCompass} placeholder="Senha" />
 
             <Button type="submit" loading={loading}>
               <FiUnlock /> Entrar

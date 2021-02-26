@@ -19,8 +19,9 @@ export const Container = styled.button`
   justify-content: center;
   align-items: center;
 
-  ${(props) => props.hidden
-    && css`
+  ${(props) =>
+    props.hidden &&
+    css`
       display: none;
     `}
 
